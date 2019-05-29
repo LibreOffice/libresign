@@ -1,1 +1,8 @@
-~~~
+# ...
+
+Main application for the LibreOffice Appliances project.
+
+```
+sudo apt-get install python-pip virtualenv
+./run.sh
+```

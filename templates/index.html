@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="">
+  <div class="">
+    <p>LibreOffice Screen Control Panel</p> 
+
+    <p>Playlist</p>
+
+    <table>
+        <tr>
+            <th>mypres.xxx</th>
+            <th>[Move up]</th>
+            <th>[Move down]</th>
+            <th>[Remove]</th>
+        </tr>
+        <tr>
+            <th>myotherpres.xxx</th>
+            <th>[Move up]</th>
+            <th>[Move down]</th>
+            <th>[Remove]</th>
+        </tr>
+    </table>
+
+    <p>Upload presentation</p>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit" value="Upload">
+            Upload file
+        </button>
+    </form>
+
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
