@@ -1,5 +1,6 @@
+#!/usr/bin/python3
 #
-# libreoffice sign "daemon"
+# libreoffice sign main program
 #
 # intended purpose: 
 #   start libo controller
@@ -7,31 +8,50 @@
 #   start and stop web server
 #   
 
-import time
-import locontrol
+import time, logging, signal, queue
+import locontrol, web, config
+ 
+class Sign():
+    def __init__(self):
+        self.running    = True
+        self.messages   = queue.Queue()
 
-def network_found():
-    # TODO start up web server
-    pass
+    def network_found(self):
+        # logging.info("network found")
+        if not web.running:
+            web.start(self.messages)
+    
+    def network_lost(self):
+        # logging.info("network lost")
+        web.stop()
+    
+    def main(self):
+        while self.running:
+            if config.HTTP_CABLE_ONLY:
+                # TODO poll for ethernet connection
+                pass
+            else:
+                self.network_found()
 
-def network_lost():
-    # TODO shut down web server
-    pass
+            if not self.messages.empty():
+                msg = self.messages.get()
+                print("msg", msg)
+    
+            time.sleep(0.1)
 
-def detect_network():
-    while 1:
-        print "..."
-        # TODO detect: polling. various specific ways to do it
-        time.sleep(1)
+        self.network_lost()
+   
+    def setup(self):
+        def sighand(signal, frame):
+            self.running = False
 
-def setup():
-    # TODO start libreoffice
-    # TODO start libo controller
-    pass
+        signal.signal(signal.SIGINT, sighand)
+        logging.basicConfig(level=logging.DEBUG)
 
-setup()
-detect_network()
+        locontrol.run()
+        self.main()
 
-
-
+if __name__ == "__main__":
+    sign = Sign()
+    sign.setup()
 
