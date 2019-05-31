@@ -47,27 +47,27 @@ def download():
 
 @app.route('/remove_file', methods=['POST'])
 def remove():
-    web.handle_web_request(create_request(Request.REMOVE_FILE))
+    web.push_request(create_request(Request.REMOVE_FILE))
     return redirect('/')
 
 @app.route('/play_file', methods=['POST'])
 def play_file():
-    web.handle_web_request(create_request(Request.PLAY_FILE))
+    web.push_request(create_request(Request.PLAY_FILE))
     return redirect('/')
 
 @app.route('/order', methods=['POST'])
 def order():
-    web.handle_web_request(create_request(Request.ORDER))
+    web.push_request(create_request(Request.ORDER))
     return redirect('/')
 
 @app.route('/play', methods=['POST'])
 def player():
-    web.handle_web_request(create_request(Request.PLAY))
+    web.push_request(create_request(Request.PLAY))
     return redirect('/')
 
 @app.route('/pause', methods=['POST'])
 def pause():
-    web.handle_web_request(create_request(Request.PAUSE))
+    web.push_request(create_request(Request.PAUSE))
     return redirect('/')
 
 

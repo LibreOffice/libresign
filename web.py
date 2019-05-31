@@ -31,7 +31,7 @@ def web_thread():
     flaskapp.app.run(debug=True, use_reloader=False, threaded=True)
     logging.info("stopping web server")
 
-def handle_web_request (request):
+def push_request (request):
     if msg_queue:
         msg_queue.put(request)
 

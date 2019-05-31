@@ -35,7 +35,7 @@ class Sign():
 
             if not self.messages.empty():
                 msg = self.messages.get()
-                print("msg", msg)
+                self.handle_web_request(msg)
     
             time.sleep(0.1)
 
@@ -50,6 +50,9 @@ class Sign():
 
         locontrol.run()
         self.main()
+
+    def handle_web_request(self, msg):
+        print("got web request")
 
 if __name__ == "__main__":
     sign = Sign()
