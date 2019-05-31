@@ -59,8 +59,12 @@ class Sign():
     def handle_web_request(self, msg):
         locontrol.handle_web_request(msg)
 
-        if msg["type"] == Request.ADD_FILE:
+        if msg.get("type") == Request.ADD_FILE:
             self.load_playlist()
+
+        if msg.get("type") == Request.ORDER:
+            pass
+            # self.order_playlist()
 
     # presentation info for the front-end
     def get_playlist(self):
