@@ -7,7 +7,10 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    playlist = [
+            {'file': "file", 'id': 1}, 
+            {'file': "file2", 'id': 2}]
+    return render_template('index.html', playlist=playlist)
 
 def upload_file (file):
     name = file.filename
