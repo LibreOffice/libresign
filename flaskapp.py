@@ -10,8 +10,8 @@ app = Flask(__name__)
 def create_request (request_type):
     file_id = None
 
-    if request.form["file_id"]:
-        file_id = request.form["file_id"]
+    if request.form.get("file_id"):
+        file_id = request.form.get("file_id")
 
     return {"type"      : request_type, 
             "file_id"   : file_id}
@@ -19,15 +19,10 @@ def create_request (request_type):
 def push_request (request_type):
     web.push_request(create_request(request_type))
 
-@app.route('/', methods=['GET'])
-def index():
-    playlist = [
-            {'file': "file", 'id': 1}, 
-            {'file': "file2", 'id': 2}]
-    return render_template('index.html', playlist=playlist)
-
 def upload_file (file):
     name = file.filename
+
+    # TODO name = make_safe(name)
 
     if name == '':
         print("no filename")
@@ -35,11 +30,17 @@ def upload_file (file):
 
     file.save(os.path.join(config.SAVE_FOLDER, name))
 
-#    push_request(Request.ADD_FILE)
+    push_request(Request.ADD_FILE)
     print ("uploaded", name)
 
 def check_filetype (filename):
+    # TODO
     pass
+
+@app.route('/', methods=['GET'])
+def index():
+    playlist = web.get_playlist()
+    return render_template('index.html', playlist=playlist)
 
 @app.route('/upload', methods=['POST'])
 def upload():

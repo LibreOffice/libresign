@@ -5,15 +5,22 @@
 #
 
 import threading, logging
+
 import request as requests
-import flaskapp
+import flaskapp, config
+
+# TODO wrap this up into a class
 
 msg_queue   = None
 running     = None
 thread      = None
+files       = []
+signd       = None
 
-def start(msgs):
-    global msg_queue, running, thread
+def start(signd_, msgs):
+    global msg_queue, running, thread, signd
+
+    signd = signd_
 
     if not running:
         msg_queue = msgs
@@ -34,4 +41,7 @@ def web_thread():
 def push_request (request):
     if msg_queue:
         msg_queue.put(request)
+
+def get_playlist ():
+    return signd.get_playlist()
 
