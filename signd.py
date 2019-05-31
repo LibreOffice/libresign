@@ -52,7 +52,7 @@ class Sign():
         self.main()
 
     def handle_web_request(self, msg):
-        print("got web request")
+        locontrol.handle_web_request(msg)
 
 if __name__ == "__main__":
     sign = Sign()
