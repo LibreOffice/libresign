@@ -1,6 +1,6 @@
-# ...
+#LibreOffice Appliances project
 
-Main application for the LibreOffice Appliances project.
+Official repository for the LibreOffice Appliances project.
 
 ```
 sudo apt-get install python-pip virtualenv
