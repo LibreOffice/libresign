@@ -32,5 +32,6 @@ def web_thread():
     logging.info("stopping web server")
 
 def handle_web_request (request):
-    print("new request")
+    if msg_queue:
+        msg_queue.put(request)
 

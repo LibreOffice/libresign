@@ -1,9 +1,14 @@
 from flask import Flask, request, render_template, redirect
 
 import web 
-from request import Request, create_request
+from request import Request
 
 app = Flask(__name__)
+
+# in case we want to add some more bells and whistles
+def create_request (request_type):
+    file_id = request.form["file_id"]
+    return (request_type, file_id)
 
 @app.route('/', methods=['GET'])
 def index():
@@ -36,18 +41,34 @@ def upload():
 
     return redirect('/')
 
-@app.route('/remove', methods=['POST'])
+@app.route('/download_file', methods=['POST'])
+def download():
+    return redirect('/')
+
+@app.route('/remove_file', methods=['POST'])
 def remove():
-    web.handle_web_request(create_request(Request.REMOVE_FILE, 1))
+    web.handle_web_request(create_request(Request.REMOVE_FILE))
     return redirect('/')
 
-@app.route('/action', methods=['POST'])
-def action():
-    web.handle_web_request(create_request(Request.PLAY, 1))
+@app.route('/play_file', methods=['POST'])
+def play_file():
+    web.handle_web_request(create_request(Request.PLAY_FILE))
     return redirect('/')
 
+@app.route('/order', methods=['POST'])
+def order():
+    web.handle_web_request(create_request(Request.ORDER))
+    return redirect('/')
 
+@app.route('/play', methods=['POST'])
+def player():
+    web.handle_web_request(create_request(Request.PLAY))
+    return redirect('/')
 
+@app.route('/pause', methods=['POST'])
+def pause():
+    web.handle_web_request(create_request(Request.PAUSE))
+    return redirect('/')
 
 
 

@@ -6,11 +6,11 @@
 
     <p>Playlist</p>
 
-    <button>Play presentation</button>
-    <button>Pause presentation</button>
+    <button onclick="request('play');">Play presentation</button>
+    <button onclick="request('pause');">Pause presentation</button>
     Note to self: Do we need these? (Android Remote)
-    <button>Next presentation</button>
-    <button>Previous presentation</button>
+    <button onclick="request('next');">Next presentation</button>
+    <button onclick="request('previous');">Previous presentation</button>
 
     <div>
 		<ul class="sortable">
@@ -18,9 +18,9 @@
             <li>
                 {{item["file"]}}
 
-                <a href="#" onclick="request('play', {{item.id}});">Play</a>
-                <a href="#" onclick="request('download', {{item.id}});">Download</a>
-                <a href="#" onclick="request('remove', {{item.id}});">Remove</a>
+                <a href="#" onclick="request('play_file', {{item.id}});">Play</a>
+                <a href="#" onclick="request('download_file', {{item.id}});">Download</a>
+                <a href="#" onclick="request('remove_file', {{item.id}});">Remove</a>
             </li>
         {% endfor %}
 		</ul>
@@ -58,7 +58,9 @@
     function request (type, file_id)
     {
         var r = new XMLHttpRequest();
-        r.open("POST", '/remove', true);
+        r.open("POST", '/'+type, true);
+        r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        r.send("file_id="+file_id);
     }
 </script>
 
