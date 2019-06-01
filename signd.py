@@ -67,7 +67,7 @@ class Sign():
             # self.order_playlist()
 
     # presentation info for the front-end
-    def get_playlist(self):
+    def get_playlist (self):
         return self.playlist
 
     # load previously-uploaded presentations

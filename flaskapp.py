@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, send_file
 
 import web, config
 from request import Request
@@ -23,6 +23,7 @@ def upload_file (file):
     name = file.filename
 
     # TODO name = make_safe(name)
+    # TODO avoid duplicate names
 
     if name == '':
         print("no filename")
@@ -52,9 +53,9 @@ def upload():
 
     return redirect('/')
 
-@app.route('/download_file', methods=['POST'])
-def download():
-    return redirect('/')
+@app.route('/download/<filename>', methods=['GET'])
+def download(filename):
+    return send_file(os.path.join(config.SAVE_FOLDER, filename))
 
 @app.route('/remove_file', methods=['POST'])
 def remove():
