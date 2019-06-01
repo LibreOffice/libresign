@@ -7,17 +7,18 @@ from request import Request
 app = Flask(__name__)
 
 # in case we want to add some more bells and whistles
-def create_request (request_type):
+def file_request (request_type):
     file_id = None
 
     if request.form.get("file_id"):
         file_id = request.form.get("file_id")
 
-    return {"type"      : request_type, 
-            "file_id"   : file_id}
+    push_request(request_type,
+                {"type"      : request_type, 
+                 "file_id"   : file_id})
 
-def push_request (request_type):
-    web.push_request(create_request(request_type))
+def push_request (request):
+    web.push_request(request)
 
 def upload_file (file):
     name = file.filename
@@ -31,7 +32,7 @@ def upload_file (file):
 
     file.save(os.path.join(config.SAVE_FOLDER, name))
 
-    push_request(Request.ADD_FILE)
+    file_request(Request.ADD_FILE)
     print ("uploaded", name)
 
 def check_filetype (filename):
@@ -59,27 +60,34 @@ def download(filename):
 
 @app.route('/remove_file', methods=['POST'])
 def remove():
-    push_request(Request.REMOVE_FILE)
+    file_request(Request.REMOVE_FILE)
     return redirect('/')
 
 @app.route('/play_file', methods=['POST'])
 def play_file():
-    push_request(Request.PLAY_FILE)
+    file_request(Request.PLAY_FILE)
     return redirect('/')
 
 @app.route('/order', methods=['POST'])
 def order():
-    push_request(Request.ORDER)
+    from_index  = request.form.get("from")
+    to_index    = request.form.get("to")
+
+    if from_index and to_index:
+        push_request({"type" : Request.ORDER, 
+                     "from" : int(from_index),
+                     "to" : int(to_index)})
+
     return redirect('/')
 
 @app.route('/play', methods=['POST'])
 def player():
-    push_request(Request.PLAY)
+    file_request(Request.PLAY)
     return redirect('/')
 
 @app.route('/pause', methods=['POST'])
 def pause():
-    push_request(Request.PAUSE)
+    file_request(Request.PAUSE)
     return redirect('/')
 
 

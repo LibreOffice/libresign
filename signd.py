@@ -63,8 +63,13 @@ class Sign():
             self.load_playlist()
 
         if msg.get("type") == Request.ORDER:
-            pass
-            # self.order_playlist()
+            from_i = msg.get("from")
+            to_i = msg.get("to")
+
+            if (from_i >= 0 and from_i < len(self.playlist) and 
+                    to_i >= 0 and to_i < len(self.playlist)):
+                tmp = self.playlist.pop(from_i)
+                self.playlist.insert(to_i, tmp)
 
     # presentation info for the front-end
     def get_playlist (self):

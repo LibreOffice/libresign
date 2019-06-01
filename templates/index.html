@@ -18,9 +18,9 @@
             <li>
                 {{item["file"]}}
 
-                <a href="#" onclick="request('play_file', {{item.id}});">Play</a>
+                <a href="#" onclick="request('play_file', 'file_id='+{{item.file_id}});">Play</a>
                 <a href="download/{{item["file"]}}" download>Download</a>
-                <a href="#" onclick="request('remove_file', {{item.id}});">Remove</a>
+                <a href="#" onclick="request('remove_file', 'file_id='+{{item.file_id}});">Remove</a>
             </li>
         {% endfor %}
 		</ul>
@@ -38,14 +38,22 @@
 </section>
 
 <script type="text/javascript">
-    sortable('.sortable');
+    var playlist = sortable('.sortable');
 
-    function request (type, file_id)
+    playlist[0].addEventListener('sortupdate', function (e)
+    {
+        var old_index = e.detail.origin.index;
+        var new_index = e.detail.destination.index;
+
+        request('order', "from="+old_index+"&to="+new_index);
+    });
+
+    function request (type, data)
     {
         var r = new XMLHttpRequest();
         r.open("POST", '/'+type, true);
         r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        r.send("file_id="+file_id);
+        r.send(data);
     }
 </script>
 
