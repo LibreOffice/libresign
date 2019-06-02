@@ -1,4 +1,4 @@
-#LibreOffice Appliances project
+# LibreOffice Appliances project
 
 Official repository for the LibreOffice Appliances project.
 
