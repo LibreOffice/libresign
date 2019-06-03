@@ -38,6 +38,7 @@ class Playlist():
 
         for i in self.playlist:
             fd.write(i.get("file"))
+            fd.write('\n')
 
         fd.close()
         print("saved playlist", self.playlist)
@@ -47,6 +48,7 @@ class Playlist():
                 to_i >= 0 and to_i < len(self.playlist)):
             tmp = self.playlist.pop(from_i)
             self.playlist.insert(to_i, tmp)
+            self.save_playlist()
 
     def queue_file (self, to_index, filename):
         # TODO check if file exists
@@ -54,3 +56,4 @@ class Playlist():
 
         if to_index >= 0 and to_index <= len(self.playlist):
             self.playlist.insert(to_index, {'file' : filename})
+            self.save_playlist()
