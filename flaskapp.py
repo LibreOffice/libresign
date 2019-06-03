@@ -10,11 +10,11 @@ app = Flask(__name__)
 def file_request (request_type):
     file_id = None
 
-    if request.form.get("file_id"):
-        file_id = request.form.get("file_id")
+    if request.form.get("file"):
+        file_id = request.form.get("file")
 
     push_request({"type"    : request_type, 
-                 "file_id"  : file_id})
+                 "file"  : file_id})
 
 def push_request (request):
     web.push_request(request)

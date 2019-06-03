@@ -1,5 +1,6 @@
 import os
 import config
+from request import Request
 
 class Playlist():
     def __init__ (self):
@@ -9,6 +10,26 @@ class Playlist():
         self.playlist   = []
         # current file index
         self.current    = 0
+
+    def handle_web_request (self, msg):
+        mtype = msg.get("type")
+
+        if mtype == Request.ADD_FILE:
+            self.load_files()
+
+        if mtype == Request.ORDER:
+            from_i      = msg.get("from")
+            to_i        = msg.get("to")
+            self.order_playlist(from_i, to_i)
+
+        if mtype == Request.QUEUE_FILE:
+            to_i        = msg.get("to")
+            filename    = msg.get("file")
+            self.queue_file(to_i, filename)
+
+        if mtype == Request.REMOVE_FILE:
+            filename    = msg.get("file")
+            self.dequeue(filename)
 
     # load previously-uploaded presentations
     def load_files (self):
@@ -57,3 +78,10 @@ class Playlist():
         if to_index >= 0 and to_index <= len(self.playlist):
             self.playlist.insert(to_index, {'file' : filename})
             self.save_playlist()
+
+    def dequeue (self, filename):
+        for item in self.playlist:
+            if item.get("file") == filename:
+                self.playlist.remove(item)
+                break
+

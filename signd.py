@@ -60,23 +60,9 @@ class Sign():
 
     def handle_web_request(self, msg):
         locontrol.handle_web_request(msg)
+        self.playlist.handle_web_request(msg)
 
         logging.debug(msg)
-
-        mtype = msg.get("type")
-
-        if mtype == Request.ADD_FILE:
-            self.playlist.load_files()
-
-        if mtype == Request.ORDER:
-            from_i      = msg.get("from")
-            to_i        = msg.get("to")
-            self.playlist.order_playlist(from_i, to_i)
-
-        if mtype == Request.QUEUE_FILE:
-            to_i        = msg.get("to")
-            filename    = msg.get("file")
-            self.playlist.queue_file(to_i, filename)
 
     # playlist info for the front-end
     def get_playlist (self):

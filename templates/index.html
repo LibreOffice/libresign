@@ -17,9 +17,9 @@
             <li class="playlist_item">
                 {{item["file"]}}
 
-                <a href="#" onclick="request('play_file', 'file_id={{item.file}}');">Play</a>
+                <a href="#" onclick="request('play_file', 'file={{item.file}}');">Play</a>
                 <a href="download/{{item["file"]}}" download>Download</a>
-                <a href="#" onclick="request('remove_file', 'file_id={{item.file}}');">Remove</a>
+                <a href="#" onclick="request('remove_file', 'file={{item.file}}');">Remove</a>
             </li>
         {% endfor %}
 		</ul>
