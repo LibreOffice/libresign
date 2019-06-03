@@ -13,9 +13,8 @@ def file_request (request_type):
     if request.form.get("file_id"):
         file_id = request.form.get("file_id")
 
-    push_request(request_type,
-                {"type"      : request_type, 
-                 "file_id"   : file_id})
+    push_request({"type"    : request_type, 
+                 "file_id"  : file_id})
 
 def push_request (request):
     web.push_request(request)

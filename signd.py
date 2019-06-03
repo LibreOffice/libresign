@@ -11,13 +11,14 @@
 import time, logging, signal, queue, os
 
 import locontrol, web, config
+from playlist import Playlist
 from request import Request
  
 class Sign():
     def __init__(self):
         self.running    = True
         self.messages   = queue.Queue()
-        self.playlist   = []
+        self.playlist   = Playlist()
 
     def network_found(self):
         # logging.info("network found")
@@ -51,7 +52,8 @@ class Sign():
         signal.signal(signal.SIGINT, sighand)
         logging.basicConfig(level=logging.DEBUG)
 
-        self.load_playlist()
+        self.playlist.load_files()
+        self.playlist.load_playlist()
 
         locontrol.run()
         self.main()
@@ -59,37 +61,20 @@ class Sign():
     def handle_web_request(self, msg):
         locontrol.handle_web_request(msg)
 
+        logging.debug(msg)
+
         if msg.get("type") == Request.ADD_FILE:
-            self.load_playlist()
+            self.playlist.load_files()
 
         if msg.get("type") == Request.ORDER:
             from_i = msg.get("from")
             to_i = msg.get("to")
 
-            if (from_i >= 0 and from_i < len(self.playlist) and 
-                    to_i >= 0 and to_i < len(self.playlist)):
-                tmp = self.playlist.pop(from_i)
-                self.playlist.insert(to_i, tmp)
+            self.playlist.order(from_i, to_i)
 
     # presentation info for the front-end
     def get_playlist (self):
-        return self.playlist
-
-    # load previously-uploaded presentations
-    def load_playlist(self):
-        path = config.SAVE_FOLDER
-        c = 1
-        self.playlist = []
-
-        # TODO store presentations.txt with FILENAME:FILE_ID
-
-        for f in os.listdir(path):
-            if os.path.isfile(os.path.join(path, f)):
-                item = {"file" : f, "file_id" : c}
-                self.playlist.append(item)
-                c += 1
-
-        print("loaded playlist", self.playlist)
+        return self.playlist.playlist
 
 if __name__ == "__main__":
     sign = Sign()
