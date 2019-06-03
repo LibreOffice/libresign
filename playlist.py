@@ -47,3 +47,10 @@ class Playlist():
                 to_i >= 0 and to_i < len(self.playlist)):
             tmp = self.playlist.pop(from_i)
             self.playlist.insert(to_i, tmp)
+
+    def queue_file (self, to_index, filename):
+        # TODO check if file exists
+        # TODO check for duplicate
+
+        if to_index >= 0 and to_index <= len(self.playlist):
+            self.playlist.insert(to_index, {'file' : filename})

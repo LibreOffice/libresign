@@ -7,3 +7,10 @@
     display: none;
 }
 
+.playlist_item
+{
+    margin: 2px;
+    padding: 10px;
+    border: 1px black solid;
+}
+

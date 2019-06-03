@@ -40,8 +40,9 @@ def check_filetype (filename):
 
 @app.route('/', methods=['GET'])
 def index():
-    playlist = web.get_playlist()
-    return render_template('index.html', playlist=playlist)
+    playlist    = web.get_playlist()
+    files       = web.get_all_files()
+    return render_template('index.html', playlist=playlist, files=files)
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -73,9 +74,21 @@ def order():
     to_index    = request.form.get("to")
 
     if from_index and to_index:
-        push_request({"type" : Request.ORDER, 
-                     "from" : int(from_index),
-                     "to" : int(to_index)})
+        push_request({"type"    : Request.ORDER, 
+                      "from"    : int(from_index),
+                      "to"      : int(to_index)})
+
+    return redirect('/')
+
+@app.route('/queue_file', methods=['POST'])
+def queue_file():
+    to_index    = request.form.get("to")
+    filename    = request.form.get("file")
+
+    if to_index and filename:
+        push_request({"type"    : Request.QUEUE_FILE, 
+                      "to"      : int(to_index),
+                      "file"    : filename})
 
     return redirect('/')
 
@@ -88,7 +101,4 @@ def player():
 def pause():
     file_request(Request.PAUSE)
     return redirect('/')
-
-
-
 

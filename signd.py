@@ -63,18 +63,28 @@ class Sign():
 
         logging.debug(msg)
 
-        if msg.get("type") == Request.ADD_FILE:
+        mtype = msg.get("type")
+
+        if mtype == Request.ADD_FILE:
             self.playlist.load_files()
 
-        if msg.get("type") == Request.ORDER:
-            from_i = msg.get("from")
-            to_i = msg.get("to")
+        if mtype == Request.ORDER:
+            from_i      = msg.get("from")
+            to_i        = msg.get("to")
+            self.playlist.order_playlist(from_i, to_i)
 
-            self.playlist.order(from_i, to_i)
+        if mtype == Request.QUEUE_FILE:
+            to_i        = msg.get("to")
+            filename    = msg.get("file")
+            self.playlist.queue_file(to_i, filename)
 
-    # presentation info for the front-end
+    # playlist info for the front-end
     def get_playlist (self):
         return self.playlist.playlist
+
+    # all files info for the front-end
+    def get_all_files (self):
+        return self.playlist.all_files
 
 if __name__ == "__main__":
     sign = Sign()

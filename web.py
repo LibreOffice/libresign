@@ -45,3 +45,6 @@ def push_request (request):
 def get_playlist ():
     return signd.get_playlist()
 
+def get_all_files ():
+    return signd.get_all_files()
+

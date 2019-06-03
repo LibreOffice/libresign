@@ -4,23 +4,35 @@
   <div class="">
     <p>LibreOffice Screen Control Panel</p> 
 
-    <p>Playlist</p>
-
     <button onclick="request('play');">Play presentation</button>
     <button onclick="request('pause');">Pause presentation</button>
     Note to self: Do we need these? (Android Remote)
     <button onclick="request('next');">Next presentation</button>
     <button onclick="request('previous');">Previous presentation</button>
 
+    <h4>Playlist</h4>
     <div>
-		<ul class="sortable">
+		<ul class="sortablePlaylist" id="playlist">
         {% for item in playlist %}
-            <li>
+            <li class="playlist_item">
                 {{item["file"]}}
 
                 <a href="#" onclick="request('play_file', 'file_id={{item.file}}');">Play</a>
                 <a href="download/{{item["file"]}}" download>Download</a>
                 <a href="#" onclick="request('remove_file', 'file_id={{item.file}}');">Remove</a>
+            </li>
+        {% endfor %}
+		</ul>
+    </div>
+
+    <h4>Files</h4>
+    <div>
+		<ul class="sortableFiles" id="files">
+        {% for item in files%}
+            <li class="playlist_item" id="{{item}}">
+                {{item}}
+
+                <a href="download/{{item}}" download>Download</a>
             </li>
         {% endfor %}
 		</ul>
@@ -38,14 +50,38 @@
 </section>
 
 <script type="text/javascript">
-    var playlist = sortable('.sortable');
+    var playlist = sortable('.sortablePlaylist', {
+        acceptFrom: '.sortableFiles, .sortablePlaylist'
+    });
+
+    var files = sortable('.sortableFiles', {
+        acceptFrom: ''
+    });
 
     playlist[0].addEventListener('sortupdate', function (e)
     {
-        var old_index = e.detail.origin.index;
-        var new_index = e.detail.destination.index;
+        var container_id        = e.detail.origin.container.id;
+        var dest_container_id   = e.detail.destination.container.id;
 
-        request('order', "from="+old_index+"&to="+new_index);
+        // move file to playlist
+        if (container_id == "files" && dest_container_id == "playlist")
+        {
+            var new_index = e.detail.destination.index;
+            var filename  = e.detail.item.id;
+
+            request('queue_file', "to="+new_index+"&file="+filename);
+            console.log("queue file");
+        }
+
+        // reorder playlist -- not implemented for files (no point)
+        if (container_id == "playlist" && dest_container_id == "playlist")
+        {
+            var old_index = e.detail.origin.index;
+            var new_index = e.detail.destination.index;
+
+            request('order', "from="+old_index+"&to="+new_index);
+            console.log("reorder playlist");
+        }
     });
 
     function request (type, data)
