@@ -5,6 +5,17 @@
 
 from request import Request
 
+class LibreOfficeController():
+    def __init__ (self):
+        self.libo_running   = False
+        self.info_showing    = True
+
+    def start_info_screen (self):
+        self.info_showing = True
+
+    def stop_info_screen (self):
+        self.info_showing = False
+
 def run():
     # TODO start libreoffice
     # TODO connect to sd remote server
