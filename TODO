@@ -1,0 +1,15 @@
+some thoughts/ ideas that i shared with my mentor, put here for
+future reference. these points are not urgent or mentioned in the original plan
+
+* should this program always be active/ daemon?
+    * "activate" on ethernet cable?
+
+* would we want further instructions i.e. "please plug in ethernet cable" 
+    "no wifi" on the TV screen (apart from "here is the URL for the control panel")
+
+* is the PI+TV assumed to be completely dedicated to running this program?
+    * the original idea said, "when ethernet is plugged in, you can go, when
+         it's not in [program is basically dormant]". 
+
+* do we require the admin/user to ever have to connect with kb/mouse?
+

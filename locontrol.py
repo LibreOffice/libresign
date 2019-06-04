@@ -4,11 +4,13 @@
 # 
 
 from request import Request
+import infoscreen
 
 class LibreOfficeController():
-    def __init__ (self):
+    def __init__ (self, signd):
+        self.signd          = signd
         self.libo_running   = False
-        self.info_showing    = True
+        self.info_showing   = True
 
     def start_info_screen (self):
         self.info_showing = True

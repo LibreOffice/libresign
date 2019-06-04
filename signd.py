@@ -55,7 +55,7 @@ class Sign():
         self.playlist.load_files()
         self.playlist.load_playlist()
 
-        locontrol.run()
+        locontrol.run(self)
         self.main()
 
     def handle_web_request(self, msg):
