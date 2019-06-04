@@ -61,7 +61,10 @@ class Sign():
             if config.HTTP_CABLE_ONLY:
                 if self.poll_network():
                     self.network_found()
+                else:
+                    self.network_lost()
             else:
+                # repeated invocations do nothing
                 self.network_found()
 
             if not self.messages.empty():
