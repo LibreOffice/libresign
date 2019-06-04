@@ -34,7 +34,7 @@ class Playlist():
     # load previously-uploaded presentations
     def load_files (self):
         path = config.SAVE_FOLDER
-        self.playlist = []
+        self.all_files = []
 
         for f in os.listdir(path):
             if os.path.isfile(os.path.join(path, f)):
