@@ -20,10 +20,10 @@ def push_request (request):
     web.push_request(request)
 
 def upload_file (file):
-    name = file.filename
+    name = safe_filename(file.filename)
 
-    # TODO name = make_safe(name)
-    # TODO avoid duplicate names
+    if check_filetype(file) != 0:
+        return
 
     if name == '':
         print("no filename")
@@ -34,9 +34,30 @@ def upload_file (file):
     file_request(Request.ADD_FILE)
     print ("uploaded", name)
 
+def file_exists (filename):
+    return 0
+
+def safe_filename (filename):
+    def clean(c):
+        if c.isalnum() or c == '.':
+            return c
+        else:
+            return '_'
+
+    parts   = ''.join([clean(c) for c in filename.rstrip(' ')]).split('.')
+    end     = '' 
+
+    if len(parts) > 1:
+        end = '.' + parts[-1]
+        parts = parts[0:-1]
+
+    safe    = ''.join(parts) + end
+
+    return safe
+
 def check_filetype (filename):
     # TODO
-    pass
+    return 0
 
 @app.route('/', methods=['GET'])
 def index():

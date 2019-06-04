@@ -36,8 +36,6 @@ class Playlist():
         path = config.SAVE_FOLDER
         self.playlist = []
 
-        # TODO store presentations.txt with FILENAME:FILE_ID
-
         for f in os.listdir(path):
             if os.path.isfile(os.path.join(path, f)):
                 item = {"file" : f}
