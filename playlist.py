@@ -85,3 +85,5 @@ class Playlist():
                 self.playlist.remove(item)
                 break
 
+        self.save_playlist()
+
