@@ -37,6 +37,10 @@ def upload_file (file):
 def file_exists (filename):
     return 0
 
+# replace all non-alphanumerics with _ which is quite extreme but:
+# TODO this ruins a lot of file names, especially parentheses, brackets and hyphens
+#      are likely to be used in the names of files that we are handling, i think
+# https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations
 def safe_filename (filename):
     def clean(c):
         if c.isalnum() or c == '.':
