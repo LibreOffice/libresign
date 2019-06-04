@@ -49,15 +49,15 @@ def get_all_files ():
     return signd.get_all_files()
 
 def get_address ():
-    port = 5000
     # NOTE linux only -- best i could do
     p = subprocess.Popen(['hostname', '-I'], stdout=subprocess.PIPE)
     # TODO might be errors?
     addr, err = p.communicate()
     p.wait()
 
-    # output is something like "b'123.0.0.123 \n"
+    # output of hostname something like "b'123.0.0.123 \n"
     addr = ''.join([c for c in str(addr) if c.isdigit() or c == '.'])
+    port = config.HTTP_PORT
 
     return addr + ':' + str(port)
 

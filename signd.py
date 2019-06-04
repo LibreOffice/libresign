@@ -32,12 +32,35 @@ class Sign():
         # logging.info("network lost")
         web.stop()
         self.locontrol.stop_info_screen()
-    
+   
+    def check_interface (self, filepath):
+        if not os.path.isfile(filepath):
+            return False
+
+        with open(filepath, 'r') as fd:
+            state = fd.readline()
+
+        return state.count('up') == 1
+
+    def poll_network (self):
+        state = False
+
+        # NOTE again, linux only
+        # NOTE permission issues potentially?
+
+        if self.check_interface('/sys/class/net/eth0/operstate'):
+            state = True
+
+        if self.check_interface('/sys/class/net/enp0s25/operstate'):
+            state = True
+
+        return state
+
     def main(self):
         while self.running:
             if config.HTTP_CABLE_ONLY:
-                # TODO poll for ethernet connection
-                pass
+                if self.poll_network():
+                    self.network_found()
             else:
                 self.network_found()
 
