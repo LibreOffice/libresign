@@ -4,7 +4,7 @@
 # 
 
 from request import Request
-import infoscreen
+import infoscreen, config
 
 class LibreOfficeController():
     def __init__ (self, signd):
@@ -13,26 +13,24 @@ class LibreOfficeController():
         self.info_showing   = True
 
     def start_info_screen (self):
-        self.info_showing = True
+        if config.SHOW_INFO_SCREEN:
+            self.info_showing = True
+            infoscreen.start_info()
 
     def stop_info_screen (self):
-        self.info_showing = False
+        if config.SHOW_INFO_SCREEN:
+            self.info_showing = False
+            infoscreen.stop_info()
 
-def run():
-    # TODO start libreoffice
-    # TODO connect to sd remote server
-    pass
-
-def handle_web_request(msg):
-    pass
-    # if Request.ADD_FILE == msg["type"]:
-    #     print("we gots a new file")
-
-    # PLAY_FILE
-
-    # PLAY
-
-    # PAUSE
-
-    # TODO msg to libreoffice process etc
-
+    def handle_web_request(msg):
+        pass
+        # if Request.ADD_FILE == msg["type"]:
+        #     print("we gots a new file")
+    
+        # PLAY_FILE
+    
+        # PLAY
+    
+        # PAUSE
+    
+        # TODO msg to libreoffice process etc

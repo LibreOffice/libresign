@@ -10,24 +10,28 @@
 
 import time, logging, signal, queue, os
 
-import locontrol, web, config
+import web, config
 from playlist import Playlist
 from request import Request
+from locontrol import LibreOfficeController
  
 class Sign():
     def __init__(self):
         self.running    = True
         self.messages   = queue.Queue()
         self.playlist   = Playlist()
+        self.locontrol  = LibreOfficeController(self)
 
     def network_found(self):
         # logging.info("network found")
         if not web.running:
             web.start(self, self.messages)
+            self.locontrol.start_info_screen()
     
     def network_lost(self):
         # logging.info("network lost")
         web.stop()
+        self.locontrol.stop_info_screen()
     
     def main(self):
         while self.running:
@@ -55,11 +59,10 @@ class Sign():
         self.playlist.load_files()
         self.playlist.load_playlist()
 
-        locontrol.run(self)
         self.main()
 
     def handle_web_request(self, msg):
-        locontrol.handle_web_request(msg)
+        self.locontrol.handle_web_request(msg)
         self.playlist.handle_web_request(msg)
 
         logging.debug(msg)
