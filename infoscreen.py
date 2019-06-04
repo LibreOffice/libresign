@@ -11,20 +11,20 @@ class TKInfoScreen(tk.Frame):
         super().__init__(master)
         self.master = master
         self.pack()
-        self.setup()
 
-    def setup (self):
-        self.hi = tk.Button(self)
-        self.hi["text"] = "hello ppl\n"
-        self.hi.pack(side="top")
+    def setup (self, url):
+        self.url_text = tk.Label(self)
+        self.url_text["text"] = url
+        self.url_text.pack(side="top")
 
-def info():
+def info(url):
     root = tk.Tk()
     app = TKInfoScreen(master=root)
+    app.setup(url)
     app.mainloop()
 
-def start_info():
-    p = Process(target=info, args=())
+def start_info(url):
+    p = Process(target=info, args=(url,))
     p.start()
     p.join()
 

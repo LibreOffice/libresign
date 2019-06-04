@@ -4,7 +4,7 @@
 # 
 
 from request import Request
-import infoscreen, config
+import infoscreen, config, web
 
 class LibreOfficeController():
     def __init__ (self, signd):
@@ -15,7 +15,8 @@ class LibreOfficeController():
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:
             self.info_showing = True
-            infoscreen.start_info()
+            addr = web.get_address()
+            infoscreen.start_info(addr)
 
     def stop_info_screen (self):
         if config.SHOW_INFO_SCREEN:
