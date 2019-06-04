@@ -72,8 +72,12 @@ class Playlist():
             self.save_playlist()
 
     def queue_file (self, to_index, filename):
-        # TODO check if file exists
-        # TODO check for duplicate
+        if self.all_files.count(filename) == 0:
+            return
+
+        for item in self.playlist:
+            if item.get("file") == filename:
+                return
 
         if to_index >= 0 and to_index <= len(self.playlist):
             self.playlist.insert(to_index, {'file' : filename})
