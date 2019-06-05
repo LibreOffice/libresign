@@ -31,7 +31,6 @@ def start_info (url):
     proc.join()
 
 def stop_info ():
-    pass
-    # if proc:
-    #     proc.stop()
+    if proc:
+        proc.terminate()
 
