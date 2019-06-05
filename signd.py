@@ -67,11 +67,8 @@ class Sign():
                 # repeated invocations do nothing
                 self.network_found()
 
-            if not self.messages.empty():
-                msg = self.messages.get()
-                self.handle_web_request(msg)
-    
-            time.sleep(0.1)
+            msg = self.messages.get(True, 1)
+            self.handle_web_request(msg)
 
         self.network_lost()
    
