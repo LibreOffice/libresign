@@ -48,9 +48,9 @@ class Sign():
         # NOTE again, linux only
         # NOTE permission issues potentially?
 
+        # TODO change this as per mentor advice -- my linux skills failed me
         if self.check_interface('/sys/class/net/eth0/operstate'):
             state = True
-
         if self.check_interface('/sys/class/net/enp0s25/operstate'):
             state = True
 
