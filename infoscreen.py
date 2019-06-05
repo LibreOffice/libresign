@@ -6,6 +6,8 @@
 from multiprocessing import Process
 import tkinter as tk
 
+proc = None
+
 class TKInfoScreen(tk.Frame):
     def __init__ (self, master=None):
         super().__init__(master)
@@ -17,14 +19,19 @@ class TKInfoScreen(tk.Frame):
         self.url_text["text"] = url
         self.url_text.pack(side="top")
 
-def info(url):
+def info (url):
     root = tk.Tk()
     app = TKInfoScreen(master=root)
     app.setup(url)
     app.mainloop()
 
-def start_info(url):
-    p = Process(target=info, args=(url,))
-    p.start()
-    p.join()
+def start_info (url):
+    proc = Process(target=info, args=(url,))
+    proc.start()
+    proc.join()
+
+def stop_info ():
+    pass
+    # if proc:
+    #     proc.stop()
 
