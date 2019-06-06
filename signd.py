@@ -33,26 +33,30 @@ class Sign():
         web.stop()
         self.locontrol.stop_info_screen()
    
-    def check_interface (self, filepath):
-        if not os.path.isfile(filepath):
-            return False
+    def check_interface (self, path):
+        # check if loopback (linux/include/linux/if_arp.h)
+        with open(path+'/type', 'r') as fd:
+            if int(fd.readline()) == 772:
+                return False
 
-        with open(filepath, 'r') as fd:
-            state = fd.readline()
+        # TODO cable only? -- i think the purpose of the "cable only" idea
+        #      was to make sure that the web control panel is only accessible
+        #      when a person with physical access to the computer connects a
+        #      cable
 
-        return state.count('up') == 1
+        with open(path+'/carrier', 'r') as fd:
+            state = bool(int(fd.readline()))
+
+        return state
 
     def poll_network (self):
         state = False
 
-        # NOTE again, linux only
-        # NOTE permission issues potentially?
-
-        # TODO change this as per mentor advice -- my linux skills failed me
-        if self.check_interface('/sys/class/net/eth0/operstate'):
-            state = True
-        if self.check_interface('/sys/class/net/enp0s25/operstate'):
-            state = True
+        for iface in os.listdir('/sys/class/net/'):
+            if os.path.isdir('/sys/class/net/'+iface):
+                state = self.check_interface('/sys/class/net/'+iface)
+                if state:
+                    break
 
         return state
 
