@@ -7,6 +7,7 @@ from multiprocessing import Process
 import tkinter as tk
 
 proc = None
+bg_color = "#00A500"
 
 class TKInfoScreen(tk.Frame):
     def __init__ (self, master=None):
@@ -15,12 +16,14 @@ class TKInfoScreen(tk.Frame):
         self.pack()
 
     def setup (self, url):
-        self.url_text = tk.Label(self)
+        self.url_text = tk.Label(self.master)
         self.url_text["text"] = url
-        self.url_text.pack(side="top")
+        self.url_text.configure(background=bg_color, foreground='white', font=("Helvetica", 30))
+        self.url_text.place(relx='0.5', rely='0.5', anchor='center', height=50)
 
 def info (url):
     root = tk.Tk()
+    root.configure(background=bg_color)
     app = TKInfoScreen(master=root)
     app.setup(url)
     app.mainloop()
