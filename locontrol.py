@@ -5,12 +5,18 @@
 
 from request import Request
 import infoscreen, config, web
+import sdremote
 
 class LibreOfficeController():
     def __init__ (self, signd):
         self.signd          = signd
         self.libo_running   = False
         self.info_showing   = True
+        self.client         = sdremote.SDRemoteClient()
+        self.client.start()
+
+    def run (self):
+        self.client.receive()
 
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:
@@ -35,4 +41,3 @@ class LibreOfficeController():
         # PAUSE
     
         # TODO msg to libreoffice process etc
-

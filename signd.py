@@ -71,11 +71,14 @@ class Sign():
                 # repeated invocations do nothing
                 self.network_found()
 
+            # get requests from web control panel, 1 second timeout
             try:
                 msg = self.messages.get(True, 1)
                 self.handle_web_request(msg)
             except queue.Empty:
                 pass
+
+            self.locontrol.run()
 
         self.network_lost()
    
