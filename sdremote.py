@@ -13,7 +13,7 @@ class SDRemoteClient():
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect(self.addr)
         self.sock.setblocking(False)
-        self.send("LO_SERVER_CLIENT_PAIR\nLibreSign\n12345\n\n")
+        self.send("LO_SERVER_CLIENT_PAIR\nLibreSign2\n12345\n\n")
 
     def send (self, data):
         sent = self.sock.send(data.encode('utf-8'))
@@ -27,10 +27,38 @@ class SDRemoteClient():
             pass
 
     def handle_message (self, data):
+        print(data)
         msg = data[0]
 
         # we need to input our pin manually in libreoffice
         if 'LO_SERVER_VALIDATING_PIN' == msg:
+            pass
+
+        elif 'LO_SERVER_SERVER_PAIRED' == msg:
+            # TODO compare server version?
+            # NOTE/TODO this also contains slideshow_finished, slideshow_info
+            pass
+
+        elif 'LO_SERVER_PAIRED' == msg:
+            pass
+
+        elif 'slideshow_started' == msg:
+            pass
+
+        elif 'slideshow_finished' == msg:
+            pass
+
+        elif 'slide_updated' == msg:
+            pass
+
+        elif 'slideshow_info' == msg:
+            pass
+
+        # base64 preview image, ignore
+        elif 'slide_preview' == msg:
+            pass
+        # slide notes, ignore
+        elif 'slide_notes' == msg:
             pass
 
     def transition_next(self):
