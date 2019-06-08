@@ -39,9 +39,6 @@ class SDRemoteClient():
             # NOTE/TODO this also contains slideshow_finished, slideshow_info
             pass
 
-        elif 'LO_SERVER_PAIRED' == msg:
-            pass
-
         elif 'slideshow_started' == msg:
             pass
 
