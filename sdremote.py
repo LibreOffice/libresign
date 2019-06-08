@@ -6,8 +6,9 @@ import socket
 
 class SDRemoteClient():
     def __init__(self):
-        self.sock = None
-        self.addr   = ('localhost', 1599)
+        self.sock       = None
+        self.addr       = ('localhost', 1599)
+        self.authorised = False
 
     def start (self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -20,6 +21,7 @@ class SDRemoteClient():
         print("sent", sent)
 
     def receive (self):
+        # TODO handle disconnect
         try:
             data = self.sock.recv(4096)
             self.handle_message(data.decode('utf-8').split('\n'))
@@ -34,10 +36,11 @@ class SDRemoteClient():
         if 'LO_SERVER_VALIDATING_PIN' == msg:
             pass
 
+        # authorised
         elif 'LO_SERVER_SERVER_PAIRED' == msg:
             # TODO compare server version?
             # NOTE/TODO this also contains slideshow_finished, slideshow_info
-            pass
+            self.authorised = True
 
         elif 'slideshow_started' == msg:
             pass
@@ -59,25 +62,23 @@ class SDRemoteClient():
             pass
 
     def transition_next(self):
-        pass
+        self.sock.send('transition_next\n\n')
 
     def transition_previous(self):
-        pass
+        self.sock.send('transition_previous\n\n')
 
-    def goto_slide(self):
-        pass
-
-    def slide_number(self):
-        pass
+    def goto_slide(self, index):
+        self.sock.send(f'goto_slide\n{index}\n')
 
     def presentation_start(self):
-        pass
+        self.sock.send('presentation_start\n\n')
 
     def presentation_stop(self):
-        pass
+        self.sock.send('presentation_stop\n\n')
 
     def presentation_resume(self):
-        pass
+        self.sock.send('presentation_resume\n\n')
 
     def presentation_blank_screen(self):
-        pass
+        self.sock.send('presentation_blank_screen\n\n')
+
