@@ -14,6 +14,8 @@ class LibreOfficeController():
         self.info_showing   = True
         self.client         = sdremote.SDRemoteClient()
         self.client.start()
+        # TODO start LibreOffice Impress -- for now i am starting it manually
+        #      for better control
 
     def run (self):
         self.client.receive()

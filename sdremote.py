@@ -18,7 +18,7 @@ class SDRemoteClient():
 
     def send (self, data):
         sent = self.sock.send(data.encode('utf-8'))
-        print("sent", sent)
+        print("sent", data)
 
     def receive (self):
         # TODO handle disconnect
@@ -37,9 +37,9 @@ class SDRemoteClient():
             pass
 
         # authorised
+        # NOTE/TODO this also contains slideshow_finished, slideshow_info
         elif 'LO_SERVER_SERVER_PAIRED' == msg:
             # TODO compare server version?
-            # NOTE/TODO this also contains slideshow_finished, slideshow_info
             self.authorised = True
 
         elif 'slideshow_started' == msg:
@@ -62,23 +62,23 @@ class SDRemoteClient():
             pass
 
     def transition_next(self):
-        self.sock.send('transition_next\n\n')
+        self.send('transition_next\n\n')
 
     def transition_previous(self):
-        self.sock.send('transition_previous\n\n')
+        self.send('transition_previous\n\n')
 
     def goto_slide(self, index):
-        self.sock.send(f'goto_slide\n{index}\n')
+        self.send(f'goto_slide\n{index}\n')
 
     def presentation_start(self):
-        self.sock.send('presentation_start\n\n')
+        self.send('presentation_start\n\n')
 
     def presentation_stop(self):
-        self.sock.send('presentation_stop\n\n')
+        self.send('presentation_stop\n\n')
 
     def presentation_resume(self):
-        self.sock.send('presentation_resume\n\n')
+        self.send('presentation_resume\n\n')
 
     def presentation_blank_screen(self):
-        self.sock.send('presentation_blank_screen\n\n')
+        self.send('presentation_blank_screen\n\n')
 
