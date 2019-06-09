@@ -10,7 +10,8 @@ import socket
 #      listening on another port? dunno
 
 class SDRemoteClient():
-    def __init__(self):
+    def __init__(self, locontrol):
+        self.locontrol  = locontrol
         self.sock       = None
         self.addr       = ('localhost', 1599)
         self.authorised = False
@@ -30,21 +31,22 @@ class SDRemoteClient():
         try:
             data = self.sock.recv(4096)
             self.handle_message(data.decode('utf-8').split('\n'))
-        except:
+        except BlockingIOError:
             pass
 
     def handle_message (self, data):
         print(data)
         msg = data[0]
 
+        self.locontrol.handle_irp_message(msg)
+
         # we need to input our pin manually in libreoffice
         if 'LO_SERVER_VALIDATING_PIN' == msg:
             pass
 
         # authorised
-        # NOTE/TODO this also contains slideshow_finished, slideshow_info
+        # TODO compare server version?
         elif 'LO_SERVER_SERVER_PAIRED' == msg:
-            # TODO compare server version?
             self.authorised = True
 
         elif 'slideshow_started' == msg:
