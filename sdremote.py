@@ -4,6 +4,11 @@
 
 import socket
 
+# TODO i've noticed some connection issues if LibreOffice crashes
+#      (which it did once or twice while connecting/ reconnecting)
+#      where i can't reconnect after restarting libreoffice, is it 
+#      listening on another port? dunno
+
 class SDRemoteClient():
     def __init__(self):
         self.sock       = None

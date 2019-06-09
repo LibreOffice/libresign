@@ -31,15 +31,18 @@ class LibreOfficeController():
             self.info_showing = False
             infoscreen.stop_info()
 
-    def handle_web_request(msg):
-        pass
-        # if Request.ADD_FILE == msg["type"]:
-        #     print("we gots a new file")
-    
-        # PLAY_FILE
-    
-        # PLAY
-    
-        # PAUSE
-    
-        # TODO msg to libreoffice process etc
+    def handle_web_request(self, msg):
+        mtype = msg.get('type')
+
+        if Request.PLAY_FILE == mtype:
+            # TODO need to either restart libreoffice, supplying the correct file
+            #      or add a way of changing the current file while libreoffice is 
+            #      running
+            pass
+
+        if Request.PLAY == mtype:
+            pass
+
+        if Request.PAUSE == mtype:
+            pass
+
