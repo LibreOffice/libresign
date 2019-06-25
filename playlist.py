@@ -95,4 +95,8 @@ class Playlist():
 
     # return filename of current presentation to be played
     def get_current (self):
+        if len(self.playlist) > self.current:
+            return self.playlist[self.current]['file']
+        else:
+            return None
 

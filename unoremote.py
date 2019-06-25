@@ -16,11 +16,20 @@ class UNOClient():
         self.locontrol = locontrol
         self.connected = False
         self.frame = "MyFrame"
+        self.docu = None
 
-    def play_file (filename):
-        docu = self.desktop.loadComponentFromURL("file://"+filename, self.frame, flags, ())
+    def play_file (self, filename):
+        filename = os.path.realpath(filename)
+        flags = 0
+        self.docu = self.desktop.loadComponentFromURL("file://"+filename, self.frame, flags, ())
 
-    def transition_next ():
+    def close_file (self):
+        if self.docu:
+            self.docu.dispose()
+            self.docu = None
+
+    def transition_next (self):
+        # TODO move to next slide
         pass
 
     def start (self):
@@ -68,7 +77,6 @@ class UNOClient():
 
         # flags = FrameSearchFlag.CREATE + FrameSearchFlag.ALL
         flags = 0
-        docu = self.desktop.loadComponentFromURL("file:///home/rpj/a/gsoc/4_slides.odp", self.frame, flags, ())
 
     def stop (self):
         pass

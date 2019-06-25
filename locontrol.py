@@ -36,8 +36,12 @@ class LibreOfficeController():
         secs = time.time()
 
         if self.client.connected and not self.slideshow_running:
-            self.client.play_file()
-            self.slideshow_running = True
+            filename = self.signd.playlist.get_current()
+
+            if filename:
+                filename = 'presentations/' + filename
+                self.client.play_file(filename)
+                self.slideshow_running = True
 
         if (self.slideshow_running and 
                 secs > self.last_transition + SLIDE_TIME):
