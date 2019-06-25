@@ -7,7 +7,7 @@ import time
 
 from request import Request
 import infoscreen, config, web
-import sdremote
+import unoremote 
 
 # temp
 SLIDE_TIME = 2
@@ -17,31 +17,32 @@ class LibreOfficeController():
         self.signd          = signd
         self.libo_running   = False
         self.info_showing   = True
-        self.client         = sdremote.SDRemoteClient(self)
+
+        self.start_libo()
+
+        self.client = unoremote.UNOClient(self)
         self.client.start()
-        # TODO start LibreOffice Impress -- for now i am starting it manually
-        #      for better control
 
         self.last_transition    = 0
         self.slideshow_running  = False
 
-    def run (self):
-        self.client.receive()
+    def start_libo (self):
+        pass
 
+    def run (self):
         # TODO check the playlist, if we have >= 1 presentations
         #      play the first one, otherwise stop presenting / libreoffice
 
         secs = time.time()
 
-        if self.client.authorised and not self.slideshow_running:
-            self.client.presentation_start()
+        if self.client.connected and not self.slideshow_running:
+            self.client.play_file()
             self.slideshow_running = True
 
         if (self.slideshow_running and 
                 secs > self.last_transition + SLIDE_TIME):
-            print("trans")
-            # self.client.transition_next()
-            # self.last_transition = secs
+            self.client.transition_next()
+            self.last_transition = secs
 
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:

@@ -52,6 +52,7 @@ class Playlist():
         fd.close()
         print("loaded playlist", self.playlist)
 
+    # save playlist file (list of items, in order)
     def save_playlist (self):
         fd = open("playlist", "w")
 
@@ -62,6 +63,7 @@ class Playlist():
         fd.close()
         print("saved playlist", self.playlist)
 
+    # swap files in places from_i and to_i
     def order_playlist (self, from_i, to_i):
         if (from_i >= 0 and from_i < len(self.playlist) and 
                 to_i >= 0 and to_i < len(self.playlist)):
@@ -69,6 +71,7 @@ class Playlist():
             self.playlist.insert(to_i, tmp)
             self.save_playlist()
 
+    # add file to playlist
     def queue_file (self, to_index, filename):
         if self.all_files.count(filename) == 0:
             return
@@ -81,6 +84,7 @@ class Playlist():
             self.playlist.insert(to_index, {'file' : filename})
             self.save_playlist()
 
+    # remove file from playlist
     def dequeue (self, filename):
         for item in self.playlist:
             if item.get("file") == filename:
@@ -88,4 +92,7 @@ class Playlist():
                 break
 
         self.save_playlist()
+
+    # return filename of current presentation to be played
+    def get_current (self):
 

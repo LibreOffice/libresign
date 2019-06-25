@@ -33,6 +33,8 @@ class SDRemoteClient():
             self.handle_message(data.decode('utf-8').split('\n'))
         except BlockingIOError:
             pass
+        except:
+            print("wtf")
 
     def handle_message (self, data):
         print(data)
