@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if $1; then 
+if [ ${#1} -eq 0 ]; then 
     echo "./run.sh /path/to/libreoffice"
     exit 1
 fi
