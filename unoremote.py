@@ -22,6 +22,7 @@ class UNOClient():
         filename = os.path.realpath(filename)
         flags = 0
         self.docu = self.desktop.loadComponentFromURL("file://"+filename, self.frame, flags, ())
+        self.docu.Presentation.start()
 
     def close_file (self):
         if self.docu:
@@ -29,8 +30,18 @@ class UNOClient():
             self.docu = None
 
     def transition_next (self):
-        # TODO move to next slide
-        pass
+        if self.docu == None:
+            return
+
+        index   = self.docu.Presentation.Controller.getCurrentSlideIndex()
+        num     = self.docu.Presentation.Controller.getCount()
+
+        # already at last page
+        if index == num - 1:
+            self.close_file()
+            self.locontrol.on_slideshow_ended()
+        else:
+            self.docu.Presentation.Controller.gotoNextSlide()
 
     def start (self):
         soffice = "soffice"
@@ -39,16 +50,16 @@ class UNOClient():
         # TODO make sure the binary is correct etc
         args = ["/usr/bin/soffice", '--nologo', '--nodefault', '--accept=pipe,name=libbo;urp']
         pid = subprocess.Popen(args).pid
-
+        # TODO make sure it actually started! -- thought if it doesn't it will
+        #      simply fail to connect which is OK
         print("started libo", pid)
-
-        print("Connecting to LibreOffice")
 
         self.local_context = uno.getComponentContext()
         self.resolver = self.local_context.ServiceManager.createInstanceWithContext(
                  'com.sun.star.bridge.UnoUrlResolver', self.local_context)
-
         tries = 0
+
+        print("Connecting to LibreOffice")
 
         while True:
             tries += 1
@@ -74,7 +85,6 @@ class UNOClient():
         print("Connected to LibreOffice")
 
         self.connected = True
-
         # flags = FrameSearchFlag.CREATE + FrameSearchFlag.ALL
         flags = 0
 

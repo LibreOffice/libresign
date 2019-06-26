@@ -30,9 +30,6 @@ class LibreOfficeController():
         pass
 
     def run (self):
-        # TODO check the playlist, if we have >= 1 presentations
-        #      play the first one, otherwise stop presenting / libreoffice
-
         secs = time.time()
 
         if self.client.connected and not self.slideshow_running:
@@ -48,6 +45,10 @@ class LibreOfficeController():
             self.client.transition_next()
             self.last_transition = secs
 
+    def on_slideshow_ended (self):
+        self.slideshow_running = False
+        self.signd.playlist.next()
+
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:
             self.info_showing = True
@@ -59,14 +60,14 @@ class LibreOfficeController():
             self.info_showing = False
             infoscreen.stop_info()
 
-    def handle_irp_message (self, msg):
-        print("IRP", msg)
-        if 'slideshow_started' == msg:
-            self.last_transition    = time.time()
-            self.slideshow_running  = True
+    # def handle_irp_message (self, msg):
+    #     print("IRP", msg)
+    #     if 'slideshow_started' == msg:
+    #         self.last_transition    = time.time()
+    #         self.slideshow_running  = True
 
-        elif 'slideshow_finished' == msg:
-            self.slideshow_running = False
+    #     elif 'slideshow_finished' == msg:
+    #         self.slideshow_running = False
 
     def handle_web_request(self, msg):
         mtype = msg.get('type')

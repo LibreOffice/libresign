@@ -100,3 +100,6 @@ class Playlist():
         else:
             return None
 
+    def next (self):
+        self.current = (self.current + 1) % len(self.playlist)
+
