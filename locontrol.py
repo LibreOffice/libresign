@@ -8,6 +8,7 @@ import time
 from request import Request
 import infoscreen, config, web
 import unoremote 
+import config as Config
 
 # temp
 SLIDE_TIME = 2
@@ -18,10 +19,10 @@ class LibreOfficeController():
         self.libo_running   = False
         self.info_showing   = True
 
-        self.start_libo()
-
-        self.client = unoremote.UNOClient(self)
-        self.client.start()
+        if not Config.NO_LIBREOFFICE:
+            self.start_libo()
+            self.client = unoremote.UNOClient(self)
+            self.client.start()
 
         self.last_transition    = 0
         self.slideshow_running  = False
@@ -30,6 +31,9 @@ class LibreOfficeController():
         pass
 
     def run (self):
+        if Config.NO_LIBREOFFICE:
+            return
+
         secs = time.time()
 
         if self.client.connected and not self.slideshow_running:
