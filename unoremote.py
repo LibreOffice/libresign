@@ -30,7 +30,9 @@ class UNOClient():
             self.docu = None
 
     def transition_next (self):
-        if self.docu == None:
+        # Presentation is not available unless we have loaded a presentation (i think)
+        # Controller is not available unless we are in slideshow mode
+        if self.docu == None or self.docu.Presentation == None or self.docu.Presentation.Controller == None:
             return
 
         index   = self.docu.Presentation.Controller.getCurrentSlideIndex()
