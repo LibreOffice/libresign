@@ -7,8 +7,6 @@ fi
 
 libo=$1
 
-
-
 source env/bin/activate
 
 # export PYTHONPATH=$libo:$libo/instdir/program
