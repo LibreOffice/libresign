@@ -32,6 +32,7 @@
             <li class="playlist_item" id="{{item}}">
                 {{item}}
 
+                <a href="#" onclick="queue_file('{{item}}', 0);">Add to playlist</a>
                 <a href="download/{{item}}" download>Download</a>
             </li>
         {% endfor %}
@@ -69,8 +70,7 @@
             var new_index = e.detail.destination.index;
             var filename  = e.detail.item.id;
 
-            request('queue_file', "to="+new_index+"&file="+filename);
-            console.log("queue file");
+            queue_file(filename, new_index);
         }
 
         // reorder playlist -- not implemented for files (no point)
@@ -83,6 +83,12 @@
             console.log("reorder playlist");
         }
     });
+
+    function queue_file (filename, index)
+    {
+        request('queue_file', "to="+index+"&file="+filename);
+        console.log("queue file", filename, index);
+    }
 
     function request (type, data)
     {

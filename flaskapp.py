@@ -93,6 +93,7 @@ def play_file():
     file_request(Request.PLAY_FILE)
     return redirect('/')
 
+# Change playlist order of a file already in the playlist
 @app.route('/order', methods=['POST'])
 def order():
     from_index  = request.form.get("from")
