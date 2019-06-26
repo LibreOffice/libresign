@@ -1,3 +1,18 @@
+some stuff that should be fixed
+
+* libreoffice creates "lock files" in the presentations directory, which are shown on the control panel website
+
+* the control panel should indicate which slide is currently playing
+* it should also have a "queue" button for files (if playlist is empty dragging is not possible)
+
+
+
+notes for the future
+
+* i noticed the control panel UI is very very tiny on smartphone, keep in mind when prettifying it
+
+
+
 some thoughts/ ideas that i shared with my mentor, put here for
 future reference. these points are not urgent or mentioned in the original plan
 

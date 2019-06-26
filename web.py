@@ -35,7 +35,7 @@ def stop():
 
 def web_thread():
     logging.info("starting web server")
-    flaskapp.app.run(debug=True, use_reloader=False, threaded=True)
+    flaskapp.app.run(debug=True, use_reloader=False, threaded=True, port=config.HTTP_PORT, host="0.0.0.0")
     logging.info("stopping web server")
 
 def push_request (request):
