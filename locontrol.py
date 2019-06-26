@@ -42,12 +42,15 @@ class LibreOfficeController():
             if filename:
                 filename = 'presentations/' + filename
                 self.client.play_file(filename)
-                self.slideshow_running = True
 
         if (self.slideshow_running and 
                 secs > self.last_transition + SLIDE_TIME):
             self.client.transition_next()
             self.last_transition = secs
+
+    def on_slideshow_started (self):
+        self.slideshow_running = True
+        self.last_transition = time.time()
 
     def on_slideshow_ended (self):
         self.slideshow_running = False

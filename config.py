@@ -9,5 +9,5 @@ SHOW_INFO_SCREEN    = False
 CONFERENCE          = False
 
 # disable starting libreoffice (debugging)
-NO_LIBREOFFICE      = True
+NO_LIBREOFFICE      = False
 

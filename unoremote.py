@@ -23,6 +23,7 @@ class UNOClient():
         flags = 0
         self.docu = self.desktop.loadComponentFromURL("file://"+filename, self.frame, flags, ())
         self.docu.Presentation.start()
+        self.locontrol.on_slideshow_started()
 
     def close_file (self):
         if self.docu:
