@@ -3,7 +3,7 @@
 # Connect to SD remote server and control LibreOffice instance
 # 
 
-import time
+import time, logging
 
 from request import Request
 import infoscreen, config, web
@@ -18,6 +18,7 @@ class LibreOfficeController():
         self.signd          = signd
         self.libo_running   = False
         self.info_showing   = True
+        self.paused         = False
 
         if not Config.NO_LIBREOFFICE:
             self.start_libo()
@@ -36,17 +37,24 @@ class LibreOfficeController():
 
         secs = time.time()
 
-        if self.client.connected and not self.slideshow_running:
+        if (self.client.connected and 
+                not self.slideshow_running and
+                not self.paused):
             filename = self.signd.playlist.get_current()
 
             if filename:
                 filename = 'presentations/' + filename
                 self.client.play_file(filename)
+        
+            logging.debug("locontrol.py: try play file")
 
         if (self.slideshow_running and 
-                secs > self.last_transition + SLIDE_TIME):
+                secs > self.last_transition + SLIDE_TIME and
+                not self.paused):
             self.client.transition_next()
             self.last_transition = secs
+
+            logging.debug("locontrol.py: try transition slide")
 
     def on_slideshow_started (self):
         self.slideshow_running = True
@@ -68,14 +76,18 @@ class LibreOfficeController():
             self.info_showing = False
             infoscreen.stop_info()
 
-    # def handle_irp_message (self, msg):
-    #     print("IRP", msg)
-    #     if 'slideshow_started' == msg:
-    #         self.last_transition    = time.time()
-    #         self.slideshow_running  = True
+    # trigger stopping and starting a presentation
+    def reload_presentation (self):
+        self.slideshow_running = False
+        self.client.close_file()
 
-    #     elif 'slideshow_finished' == msg:
-    #         self.slideshow_running = False
+    def resume (self):
+        self.paused = False
+
+    def pause (self):
+        self.paused = True
+        self.client.close_file()
+        self.slideshow_running = False
 
     def handle_web_request(self, msg):
         mtype = msg.get('type')
@@ -87,8 +99,8 @@ class LibreOfficeController():
             pass
 
         if Request.PLAY == mtype:
-            pass
+            self.resume()
 
         if Request.PAUSE == mtype:
-            pass
+            self.pause()
 

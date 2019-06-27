@@ -1,5 +1,5 @@
 from sys import stderr
-import os, time, sys
+import os, time, sys, logging
 import subprocess
 
 import uno
@@ -25,10 +25,14 @@ class UNOClient():
         self.docu.Presentation.start()
         self.locontrol.on_slideshow_started()
 
+        logging.debug("play file %s" % filename)
+
     def close_file (self):
         if self.docu:
             self.docu.dispose()
             self.docu = None
+
+        logging.debug("close file")
 
     def transition_next (self):
         # Presentation is not available unless we have loaded a presentation (i think)
@@ -45,6 +49,8 @@ class UNOClient():
             self.locontrol.on_slideshow_ended()
         else:
             self.docu.Presentation.Controller.gotoNextSlide()
+
+        logging.debug("transition")
 
     def start (self):
         soffice = "soffice"

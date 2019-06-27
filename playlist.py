@@ -17,6 +17,11 @@ class Playlist():
         if mtype == Request.ADD_FILE:
             self.load_files()
 
+        if mtype == Request.PLAY_FILE:
+            print("play file")
+            filename = msg.get("file")
+            self.select_file(filename)
+
         if mtype == Request.ORDER:
             from_i      = msg.get("from")
             to_i        = msg.get("to")
@@ -92,6 +97,19 @@ class Playlist():
                 break
 
         self.save_playlist()
+
+    # select file to be played right now
+    def select_file (self, filename):
+        c = 0
+
+        for item in self.playlist:
+            if item.get("file") == filename:
+                self.current = c
+                break
+
+            c += 1
+
+        print("play", self.current, filename)
 
     # return filename of current presentation to be played
     def get_current (self):
