@@ -24,6 +24,9 @@ class TKInfoScreen(tk.Frame):
 def info (url):
     root = tk.Tk()
     root.configure(background=bg_color)
+    w = root.winfo_screenwidth()
+    h = root.winfo_screenheight()
+    root.geometry("%dx%d+0+0" % (w, h))
     app = TKInfoScreen(master=root)
     app.setup(url)
     app.mainloop()
@@ -31,7 +34,7 @@ def info (url):
 def start_info (url):
     proc = Process(target=info, args=(url,))
     proc.start()
-    proc.join()
+    # proc.join()
 
 def stop_info ():
     if proc:
