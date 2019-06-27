@@ -95,4 +95,4 @@ def get_address ():
     if len(addr) == 0:
         addr = get_addr_pi()
 
-    return addr + ':' + str(port)
+    return 'http://' + addr + ':' + str(port) + '/'
