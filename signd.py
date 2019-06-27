@@ -95,8 +95,8 @@ class Sign():
         self.main()
 
     def handle_web_request(self, msg):
-        self.locontrol.handle_web_request(msg)
         self.playlist.handle_web_request(msg)
+        self.locontrol.handle_web_request(msg)
 
         logging.debug(msg)
 

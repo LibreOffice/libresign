@@ -15,10 +15,12 @@ SLIDE_TIME = 2
 
 class LibreOfficeController():
     def __init__ (self, signd):
-        self.signd          = signd
-        self.libo_running   = False
-        self.info_showing   = True
-        self.paused         = False
+        self.signd              = signd
+        self.libo_running       = False
+        self.info_showing       = True
+        self.paused             = False
+        # name of file currently playing
+        self.current_filename   = ""
 
         if not Config.NO_LIBREOFFICE:
             self.start_libo()
@@ -45,6 +47,7 @@ class LibreOfficeController():
             if filename:
                 filename = 'presentations/' + filename
                 self.client.play_file(filename)
+                self.current_filename = filename
         
             logging.debug("locontrol.py: try play file")
 
@@ -93,10 +96,10 @@ class LibreOfficeController():
         mtype = msg.get('type')
 
         if Request.PLAY_FILE == mtype:
-            # TODO need to either restart libreoffice, supplying the correct file
-            #      or add a way of changing the current file while libreoffice is 
-            #      running
-            pass
+            filename = msg.get('file')
+
+            if filename != self.current_filename:
+                self.reload_presentation()
 
         if Request.PLAY == mtype:
             self.resume()
