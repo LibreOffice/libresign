@@ -48,7 +48,7 @@ def get_playlist ():
 def get_all_files ():
     return signd.get_all_files()
 
-def get_address ():
+def get_addr_1 ():
     # NOTE linux only -- best i could do
     p = subprocess.Popen(['hostname', '-I'], stdout=subprocess.PIPE)
     # TODO might be errors?
@@ -57,7 +57,29 @@ def get_address ():
 
     # output of hostname something like "b'123.0.0.123 \n"
     addr = ''.join([c for c in str(addr) if c.isdigit() or c == '.'])
+
+    return addr
+
+# this works on Arch Linux ARM
+def get_addr_pi ():
+    # NOTE linux only -- best i could do
+    p = subprocess.Popen(['ifconfig'], stdout=subprocess.PIPE)
+    addr, err = p.communicate()
+    p.wait()
+
+    print("get_addr_pi", addr)
+
+    # output of hostname something like "b'123.0.0.123 \n"
+    addr = ''.join([c for c in str(addr) if c.isdigit() or c == '.'])
+
+    return addr
+
+def get_address ():
     port = config.HTTP_PORT
+    # addr = get_addr_1()
+    addr = ""
+
+    if len(addr) == 0:
+        addr = get_addr_pi()
 
     return addr + ':' + str(port)
-
