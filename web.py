@@ -75,11 +75,12 @@ def get_addr_pi ():
     # regex knowledge would be useful...
     for line in str(result).split('\\n'):
         if found_iface:
-            if line.contains('inet'):
+            if line.find('inet ') >= 0:
                 parts = [part for part in line.split(' ') if part != '']
                 addr = parts[1]
+                break
 
-        if line.contains(iface):
+        if line.find(iface) >= 0:
             found_iface = True
 
     logging.debug("web::get_addr_pi(): got addr " + addr)
