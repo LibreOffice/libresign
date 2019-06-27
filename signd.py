@@ -21,6 +21,8 @@ class Sign():
         self.messages   = queue.Queue()
         self.playlist   = Playlist()
         self.locontrol  = LibreOfficeController(self)
+        # the interface we are using
+        self.net_iiface = ""
 
     def network_found(self):
         # logging.info("network found")
@@ -56,6 +58,7 @@ class Sign():
             if os.path.isdir('/sys/class/net/'+iface):
                 state = self.check_interface('/sys/class/net/'+iface)
                 if state:
+                    self.net_iface = iface
                     break
 
         return state

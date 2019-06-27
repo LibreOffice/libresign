@@ -64,19 +64,31 @@ def get_addr_1 ():
 def get_addr_pi ():
     # NOTE linux only -- best i could do
     p = subprocess.Popen(['ifconfig'], stdout=subprocess.PIPE)
-    addr, err = p.communicate()
+    result, err = p.communicate()
     p.wait()
 
-    print("get_addr_pi", addr)
+    iface = signd.net_iface
+    found_iface = False
 
-    # output of hostname something like "b'123.0.0.123 \n"
-    addr = ''.join([c for c in str(addr) if c.isdigit() or c == '.'])
+    addr = ""
+
+    # regex knowledge would be useful...
+    for line in str(result).split('\\n'):
+        if found_iface:
+            if line.contains('inet'):
+                parts = [part for part in line.split(' ') if part != '']
+                addr = parts[1]
+
+        if line.contains(iface):
+            found_iface = True
+
+    logging.debug("web::get_addr_pi(): got addr " + addr)
 
     return addr
 
 def get_address ():
     port = config.HTTP_PORT
-    # addr = get_addr_1()
+    addr = get_addr_1()
     addr = ""
 
     if len(addr) == 0:
