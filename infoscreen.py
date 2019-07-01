@@ -59,6 +59,7 @@ def info (url):
     w = root.winfo_screenwidth()
     h = root.winfo_screenheight()
     root.geometry("%dx%d+0+0" % (w, h))
+    root.attributes('-fullscreen', True)
     app = TKInfoScreen(master=root)
     app.setup(url)
     app.mainloop()

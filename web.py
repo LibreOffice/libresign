@@ -90,7 +90,6 @@ def get_addr_pi ():
 def get_address ():
     port = config.HTTP_PORT
     addr = get_addr_1()
-    addr = ""
 
     if len(addr) == 0:
         addr = get_addr_pi()
