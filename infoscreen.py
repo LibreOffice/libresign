@@ -60,16 +60,22 @@ def info (url):
     h = root.winfo_screenheight()
     root.geometry("%dx%d+0+0" % (w, h))
     root.attributes('-fullscreen', True)
+    root.attributes('-topmost', True)
+
     app = TKInfoScreen(master=root)
     app.setup(url)
     app.mainloop()
 
 def start_info (url):
+    global proc
     proc = Process(target=info, args=(url,))
     proc.start()
     # proc.join()
 
 def stop_info ():
+    global proc
+
     if proc:
         proc.terminate()
+
 

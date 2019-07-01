@@ -62,11 +62,12 @@ class LibreOfficeController():
     def on_slideshow_started (self):
         self.slideshow_running = True
         self.last_transition = time.time()
-        # self.stop_info_screen()
+        self.stop_info_screen()
 
     def on_slideshow_ended (self):
         self.slideshow_running = False
         self.signd.playlist.next()
+        self.start_info_screen()
 
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:
