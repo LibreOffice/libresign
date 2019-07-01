@@ -57,7 +57,7 @@ class UNOClient():
         pipename = "libresign"
 
         # TODO make sure the binary is correct etc
-        args = ["/usr/bin/soffice", '--nologo', '--nodefault', '--accept=pipe,name=libbo;urp']
+        args = ["/usr/bin/soffice", '--nologo', '--norestore', '--nodefault', '--accept=pipe,name=libbo;urp']
         pid = subprocess.Popen(args).pid
         # TODO make sure it actually started! -- thought if it doesn't it will
         #      simply fail to connect which is OK
