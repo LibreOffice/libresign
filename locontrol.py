@@ -33,6 +33,9 @@
 
 import time, logging
 
+from xdo import Xdo
+xdo = Xdo()
+
 from request import Request
 import infoscreen, config, web
 import unoremote 
@@ -50,16 +53,13 @@ class LibreOfficeController():
         # name of file currently playing
         self.current_filename   = ""
 
-        if not Config.NO_LIBREOFFICE:
-            self.start_libo()
-            self.client = unoremote.UNOClient(self)
-            self.client.start()
-
         self.last_transition    = 0
         self.slideshow_running  = False
 
-    def start_libo (self):
-        pass
+    def start_libreoffice (self):
+        if not Config.NO_LIBREOFFICE:
+            self.client = unoremote.UNOClient(self)
+            self.client.start()
 
     def run (self):
         if Config.NO_LIBREOFFICE:
@@ -67,6 +67,7 @@ class LibreOfficeController():
 
         secs = time.time()
 
+        # no slideshow running, try to play a file
         if (self.client.connected and 
                 not self.slideshow_running and
                 not self.paused):
@@ -76,9 +77,10 @@ class LibreOfficeController():
                 filename = 'presentations/' + filename
                 self.client.play_file(filename)
                 self.current_filename = filename
-        
+
             logging.debug("locontrol.py: try play file")
 
+        # slideshow is up, transition
         if (self.slideshow_running and 
                 secs > self.last_transition + SLIDE_TIME and
                 not self.paused):
@@ -90,12 +92,34 @@ class LibreOfficeController():
     def on_slideshow_started (self):
         self.slideshow_running = True
         self.last_transition = time.time()
-        self.stop_info_screen()
+#        self.stop_info_screen()
 
     def on_slideshow_ended (self):
         self.slideshow_running = False
         self.signd.playlist.next()
-        self.start_info_screen()
+        self.focus_info_screen()
+#        self.start_info_screen()
+
+    # force screen to front
+    def focus_info_screen (self):
+        # TODO rename the window to something more likely to be unique,
+        #      like 13827218231683163
+        win_id = None
+
+        try:
+            win_id = xdo.search_windows(b'tk')
+        except:
+            pass
+
+        if win_id and len(win_id):
+            win_id = win_id[0]
+
+            try:
+                xdo.raise_window(win_id)
+            # TODO this happens when i alt-tab while running, i think.
+            #      don't know, but it does happen
+            except:
+                pass
 
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:
