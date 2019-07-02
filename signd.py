@@ -29,6 +29,7 @@ class Sign():
         if not web.running:
             web.start(self, self.messages)
             self.locontrol.start_info_screen()
+            self.locontrol.start_libreoffice()
     
     def network_lost(self):
         # logging.info("network lost")
@@ -74,9 +75,9 @@ class Sign():
                 # repeated invocations do nothing
                 self.network_found()
 
-            # get requests from web control panel, 1 second timeout
+            # get requests from web control panel, 0.2 second timeout
             try:
-                msg = self.messages.get(True, 1)
+                msg = self.messages.get(True, 0.2)
                 self.handle_web_request(msg)
             except queue.Empty:
                 pass

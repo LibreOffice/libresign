@@ -85,6 +85,8 @@ class UNOClient():
             except:
                 time.sleep(0.1)
 
+        self.locontrol.focus_info_screen()
+
         self.smgr = self.context.ServiceManager
         self.desktop = self.smgr.createInstanceWithContext('com.sun.star.frame.Desktop', self.context)
 
