@@ -26,16 +26,3 @@
 # the provisions above, a recipient may use your version of this file under
 # the terms of any one of the MPL or the LGPL.
 #
-#
-
-HTTP_PORT           = 5000
-HTTP_CABLE_ONLY     = True 
-SAVE_FOLDER         = "./presentations"
-SHOW_INFO_SCREEN    = True
-# conference = manually control slideshows
-# otherwise = signage mode, automatic transitions and changing slides
-CONFERENCE          = False
-
-# disable starting libreoffice (debugging)
-NO_LIBREOFFICE      = False
-
