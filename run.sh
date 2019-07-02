@@ -14,5 +14,5 @@ export PYTHONPATH=$libo
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo
 export URE_BOOTSTRAP=$libo/fundamentalrc
-python3 signd.py
+./signd.py
 

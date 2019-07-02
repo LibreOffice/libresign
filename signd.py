@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # Version: MPL 1.1/LGPL 2.1
 #
 # This file is part of the LibreOffice project.
@@ -26,7 +28,6 @@
 # the provisions above, a recipient may use your version of this file under
 # the terms of any one of the MPL or the LGPL.
 #
-#!/usr/bin/python3
 #
 # libreoffice sign main program
 #
