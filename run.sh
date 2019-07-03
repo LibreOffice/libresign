@@ -2,7 +2,8 @@
 
 if [ ${#1} -eq 0 ]; then 
     echo "./run.sh /path/to/libreoffice"
-    exit 1
+    echo "Trying /usr/lib/libreoffice..."
+    1="/usr/lib/libreoffice"
 fi
 
 libo=$1
