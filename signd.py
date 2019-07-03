@@ -37,7 +37,7 @@
 #   start and stop web server
 #   
 
-import time, logging, signal, queue, os
+import time, logging, signal, queue, os, sys
 
 import web, config
 from playlist import Playlist
@@ -142,6 +142,11 @@ class Sign():
         return self.playlist.all_files
 
 if __name__ == "__main__":
+    for arg in sys.argv:
+        if arg == '--onlyweb':
+            config.NO_LIBREOFFICE = True
+            config.SHOW_INFO_SCREEN = False
+
     sign = Sign()
     sign.setup()
 
