@@ -57,8 +57,9 @@ class LibreOfficeController():
         self.slideshow_running  = False
 
     def start_libreoffice (self):
+        self.client = unoremote.UNOClient(self)
+
         if not Config.NO_LIBREOFFICE:
-            self.client = unoremote.UNOClient(self)
             self.client.start()
 
     def run (self):

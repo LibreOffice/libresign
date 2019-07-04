@@ -95,7 +95,8 @@ def check_filetype (filename):
 def index():
     playlist    = web.get_playlist()
     files       = web.get_all_files()
-    return render_template('index.html', playlist=playlist, files=files)
+    playing     = web.get_current_playlist_item()
+    return render_template('index.html', playlist=playlist, files=files, currently_playing=playing)
 
 @app.route('/upload', methods=['POST'])
 def upload():

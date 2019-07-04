@@ -135,11 +135,7 @@ class Sign():
 
     # playlist info for the front-end
     def get_playlist (self):
-        return self.playlist.playlist
-
-    # all files info for the front-end
-    def get_all_files (self):
-        return self.playlist.all_files
+        return self.playlist
 
 if __name__ == "__main__":
     for arg in sys.argv:

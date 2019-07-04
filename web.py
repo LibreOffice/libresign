@@ -71,10 +71,16 @@ def push_request (request):
         msg_queue.put(request)
 
 def get_playlist ():
-    return signd.get_playlist()
+    playlist = signd.get_playlist()
+    return playlist.playlist
 
 def get_all_files ():
-    return signd.get_all_files()
+    playlist = signd.get_playlist()
+    return playlist.all_files
+
+def get_current_playlist_item ():
+    playlist = signd.get_playlist()
+    return playlist.get_current()
 
 def get_addr_1 ():
     # NOTE linux only -- best i could do

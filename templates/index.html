@@ -15,6 +15,9 @@
 		<ul class="sortablePlaylist" id="playlist">
         {% for item in playlist %}
             <li class="playlist_item">
+                {% if item.file == currently_playing %}
+                [[[Playing now]]]
+                {% endif %}
                 {{item["file"]}}
 
                 <a href="#" onclick="request('play_file', 'file={{item.file}}');">Play</a>
