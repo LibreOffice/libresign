@@ -62,16 +62,14 @@ class LibreOfficeController():
         if not Config.NO_LIBREOFFICE:
             self.client.start()
 
-    def run (self):
-        if Config.NO_LIBREOFFICE:
-            return
-
+    def run_signage (self):
         secs = time.time()
 
         # no slideshow running, try to play a file
         if (self.client.connected and 
                 not self.slideshow_running and
                 not self.paused):
+
             filename    = self.signd.playlist.get_current()
             size        = self.signd.playlist.get_playlist_size()
             loop        = size == 1
@@ -87,6 +85,7 @@ class LibreOfficeController():
         if (self.slideshow_running and 
                 secs > self.last_transition + SLIDE_TIME and
                 not self.paused):
+
             self.client.transition_next()
             self.last_transition = secs
 
@@ -95,13 +94,11 @@ class LibreOfficeController():
     def on_slideshow_started (self):
         self.slideshow_running = True
         self.last_transition = time.time()
-#        self.stop_info_screen()
 
     def on_slideshow_ended (self):
         self.slideshow_running = False
         self.signd.playlist.next()
         self.focus_info_screen()
-#        self.start_info_screen()
 
     # force screen to front
     def focus_info_screen (self):

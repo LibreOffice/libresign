@@ -111,7 +111,10 @@ class Sign():
             except queue.Empty:
                 pass
 
-            self.locontrol.run()
+            # if we're running with LIBO (debugging) or
+            # in signage mode (in conference we do all this manually)
+            if not config.NO_LIBREOFFICE and not config.CONFERENCE:
+                self.locontrol.run_signage()
 
         self.network_lost()
    
@@ -142,6 +145,19 @@ if __name__ == "__main__":
         if arg == '--onlyweb':
             config.NO_LIBREOFFICE = True
             config.SHOW_INFO_SCREEN = False
+
+        if arg == '--noinfo':
+            config.SHOW_INFO_SCREEN = False
+
+        if arg == '--nolibreoffice':
+            config.NO_LIBREOFFICE = True
+
+        if arg == '--sign':
+            config.CONFERENCE = False
+
+        # default anyway
+        if arg == '--conference':
+            config.CONFERENCE = True
 
     sign = Sign()
     sign.setup()
