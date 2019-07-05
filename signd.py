@@ -142,16 +142,20 @@ class Sign():
 
 if __name__ == "__main__":
     for arg in sys.argv:
+        # run only the web server (control panel) (debugging)
         if arg == '--onlyweb':
             config.NO_LIBREOFFICE = True
             config.SHOW_INFO_SCREEN = False
 
+        # don't show the fullscreen info screen
         if arg == '--noinfo':
             config.SHOW_INFO_SCREEN = False
 
+        # don't start libreoffice (debugging)
         if arg == '--nolibreoffice':
             config.NO_LIBREOFFICE = True
 
+        # run as a digital sign
         if arg == '--sign':
             config.CONFERENCE = False
 

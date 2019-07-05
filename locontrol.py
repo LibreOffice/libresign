@@ -69,17 +69,7 @@ class LibreOfficeController():
         if (self.client.connected and 
                 not self.slideshow_running and
                 not self.paused):
-
-            filename    = self.signd.playlist.get_current()
-            size        = self.signd.playlist.get_playlist_size()
-            loop        = size == 1
-
-            if filename:
-                filename = 'presentations/' + filename
-                self.client.play_file(filename, loop)
-                self.current_filename = filename
-
-            logging.debug("locontrol.py: try play file")
+            self.try_play_file()
 
         # slideshow is up, transition
         if (self.slideshow_running and 
@@ -132,10 +122,23 @@ class LibreOfficeController():
             self.info_showing = False
             infoscreen.stop_info()
 
+    def try_play_file (self):
+        filename    = self.signd.playlist.get_current()
+        size        = self.signd.playlist.get_playlist_size()
+        loop        = size == 1
+
+        if filename:
+            filename = 'presentations/' + filename
+            self.client.play_file(filename, loop)
+            self.current_filename = filename
+
+        logging.debug("locontrol.py: try play file")
+
     # trigger stopping and starting a presentation
     def reload_presentation (self):
         self.slideshow_running = False
         self.client.close_file()
+        self.try_play_file()
 
     def resume (self):
         self.paused = False
