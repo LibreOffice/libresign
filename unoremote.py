@@ -50,9 +50,25 @@ class UNOClient():
         filename = os.path.realpath(filename)
         flags = 0
         self.docu = self.desktop.loadComponentFromURL("file://"+filename, self.frame, flags, ())
+
+        # make sure the presentation runs properly
+        self.docu.Presentation.IsAlwaysOnTop        = True
+        self.docu.Presentation.IsEndless            = True
+        self.docu.Presentation.IsFullScreen         = True
+        self.docu.Presentation.IsMouseVisible       = False
+        self.docu.Presentation.IsTransitionOnClick  = False
+        self.docu.Presentation.Pause                = 0
+
+        pages = self.docu.DrawPages.ElementNames
+        
+        # set defaults per page
+        for name in pages:
+            page = self.docu.DrawPages.getByName(name)
+            page.HighResDuration = 1.0
+            page.TransitionType = 0
+
         self.docu.Presentation.start()
         self.locontrol.on_slideshow_started()
-
         logging.debug("play file %s" % filename)
 
     def close_file (self):
@@ -72,11 +88,12 @@ class UNOClient():
         num     = self.docu.Presentation.Controller.getCount()
 
         # already at last page
-        if index == num - 1:
-            self.close_file()
-            self.locontrol.on_slideshow_ended()
-        else:
-            self.docu.Presentation.Controller.gotoNextSlide()
+        # if index == num - 1:
+        #     self.close_file()
+        #     self.locontrol.on_slideshow_ended()
+        # else:
+        
+        self.docu.Presentation.Controller.gotoNextSlide()
 
         logging.debug("transition")
 
