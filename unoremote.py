@@ -57,7 +57,7 @@ class UNOClient():
         self.docu.Presentation.IsFullScreen         = True
         self.docu.Presentation.IsMouseVisible       = False
         self.docu.Presentation.IsTransitionOnClick  = False
-        self.docu.Presentation.Pause                = 1
+        self.docu.Presentation.Pause                = 0
 
         pages = self.docu.DrawPages.ElementNames
         
