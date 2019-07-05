@@ -107,10 +107,10 @@ class LibreOfficeController():
         #      like 13827218231683163
         win_id = None
 
-        try:
-            win_id = xdo.search_windows(b'tk')
-        except:
-            pass
+        # try:
+        #     win_id = xdo.search_windows(b'tk')
+        # except:
+        #     pass
 
         if win_id and len(win_id):
             win_id = win_id[0]

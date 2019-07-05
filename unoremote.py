@@ -57,14 +57,15 @@ class UNOClient():
         self.docu.Presentation.IsFullScreen         = True
         self.docu.Presentation.IsMouseVisible       = False
         self.docu.Presentation.IsTransitionOnClick  = False
-        self.docu.Presentation.Pause                = 0
+        self.docu.Presentation.Pause                = 1
 
         pages = self.docu.DrawPages.ElementNames
         
         # set defaults per page
         for name in pages:
             page = self.docu.DrawPages.getByName(name)
-            page.HighResDuration = 1.0
+            # page.HighResDuration = 1.0
+            # page.TransitionDuration = 1.0
             page.TransitionType = 0
 
         self.docu.Presentation.start()
@@ -88,12 +89,11 @@ class UNOClient():
         num     = self.docu.Presentation.Controller.getCount()
 
         # already at last page
-        # if index == num - 1:
-        #     self.close_file()
-        #     self.locontrol.on_slideshow_ended()
-        # else:
-        
-        self.docu.Presentation.Controller.gotoNextSlide()
+        if index == num - 1:
+            self.close_file()
+            self.locontrol.on_slideshow_ended()
+        else:
+            self.docu.Presentation.Controller.gotoNextSlide()
 
         logging.debug("transition")
 
