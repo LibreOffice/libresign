@@ -146,6 +146,9 @@ class Playlist():
         else:
             return None
 
+    def get_playlist_size (self):
+        return len(self.playlist)
+
     def next (self):
         self.current = (self.current + 1) % len(self.playlist)
 

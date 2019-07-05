@@ -46,14 +46,14 @@ class UNOClient():
         self.frame = "MyFrame"
         self.docu = None
 
-    def play_file (self, filename):
+    def play_file (self, filename, looping):
         filename = os.path.realpath(filename)
         flags = 0
         self.docu = self.desktop.loadComponentFromURL("file://"+filename, self.frame, flags, ())
 
         # make sure the presentation runs properly
         self.docu.Presentation.IsAlwaysOnTop        = True
-        self.docu.Presentation.IsEndless            = True
+        self.docu.Presentation.IsEndless            = looping
         self.docu.Presentation.IsFullScreen         = True
         self.docu.Presentation.IsMouseVisible       = False
         self.docu.Presentation.IsTransitionOnClick  = False
@@ -88,14 +88,17 @@ class UNOClient():
         index   = self.docu.Presentation.Controller.getCurrentSlideIndex()
         num     = self.docu.Presentation.Controller.getCount()
 
-        # already at last page
-        if index == num - 1:
+        # already at last page and we're not looping
+        if index == num - 1 and not self.docu.Presentation.IsEndless:
             self.close_file()
             self.locontrol.on_slideshow_ended()
         else:
             self.docu.Presentation.Controller.gotoNextSlide()
 
         logging.debug("transition")
+
+    def set_looping (self, looping):
+        self.docu.Presentation.IsEndless = looping
 
     def start (self):
         soffice = "soffice"

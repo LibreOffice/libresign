@@ -72,11 +72,13 @@ class LibreOfficeController():
         if (self.client.connected and 
                 not self.slideshow_running and
                 not self.paused):
-            filename = self.signd.playlist.get_current()
+            filename    = self.signd.playlist.get_current()
+            size        = self.signd.playlist.get_playlist_size()
+            loop        = size == 1
 
             if filename:
                 filename = 'presentations/' + filename
-                self.client.play_file(filename)
+                self.client.play_file(filename, loop)
                 self.current_filename = filename
 
             logging.debug("locontrol.py: try play file")
@@ -146,8 +148,16 @@ class LibreOfficeController():
         self.client.close_file()
         self.slideshow_running = False
 
+    # set looping on/off
+    def playlist_changed (self):
+        size = self.signd.playlist.get_playlist_size()
+        self.client.set_looping(size == 1)
+
     def handle_web_request(self, msg):
         mtype = msg.get('type')
+
+        if Request.QUEUE_FILE == mtype or Request.REMOVE_FILE == mtype:
+            self.playlist_changed()
 
         if Request.PLAY_FILE == mtype:
             filename = msg.get('file')
