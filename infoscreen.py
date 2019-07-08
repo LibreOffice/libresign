@@ -68,7 +68,7 @@ class TKInfoScreen(tk.Frame):
 
         # link to code repo
         code_site = tk.Label(self.master)
-        code_site['text'] = 'Get the code at: https://github.com/rptr/libresign'
+        code_site['text'] = 'Get the code at: https://github.com/LibreOffice/libresign'
         code_site.configure(background=bg_color, foreground='white', 
                                 font=smallfont)
         code_site.place(relx='0', rely='1.0', anchor='sw', 
