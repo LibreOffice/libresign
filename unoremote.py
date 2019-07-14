@@ -147,10 +147,16 @@ class UNOClient():
         if not self.get_document():
             return
 
+        if not self.docu.Presentation.isRunning():
+            return
+
         self.docu.Presentation.Controller.gotoPreviousSlide()
 
     def goto_slide (self, number):
         if not self.get_document():
+            return
+
+        if not self.docu.Presentation.isRunning():
             return
 
         self.docu.Presentation.Controller.gotoSlideIndex(number)
@@ -170,10 +176,22 @@ class UNOClient():
         self.locontrol.on_slideshow_ended()
 
     def blank_screen (self):
-        pass
+        if not self.get_document():
+            return
+
+        if not self.docu.Presentation.isRunning():
+            return
+
+        self.docu.Presentation.Controller.blankScreen(0)
 
     def resume (self):
-        pass
+        if not self.get_document():
+            return
+
+        if not self.docu.Presentation.isRunning():
+            return
+
+        self.docu.Presentation.Controller.resume()
 
     # 
     def set_looping (self, looping):
