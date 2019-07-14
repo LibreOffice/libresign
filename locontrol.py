@@ -131,6 +131,7 @@ class LibreOfficeController():
             filename = 'presentations/' + filename
             self.client.play_file(filename, loop)
             self.current_filename = filename
+            self.client.presentation_start()
 
         logging.debug("locontrol.py: try play file")
 

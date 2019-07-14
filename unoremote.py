@@ -33,19 +33,46 @@ import subprocess
 import uno
 import unohelper
 
+import IPython
+IR = IPython.embed
+
 # import com.sun.star.frame.FrameSearchFlag
 
 # This class handles communication with the running LibreOffice instance
 connection_url = 'uno:pipe,name=libbo;urp;StarOffice.ComponentContext'
 
+# This class receives messages (IRP) from the UNOClient
+class LiboListener ():
+    def on_slideshow_started (self):
+        pass
+
+    def on_slide_notes (self, num_slides, html):
+        pass
+
+    def on_slide_updated (self, slide_number):
+        pass
+
+    def on_slide_preview (self, slide_number, image):
+        pass
+
+    def on_slideshow_ended (self):
+        pass
+
+    def focus_info_screen (self):
+        pass
+
 # This class handles communication with the running LibreOffice instance
 class UNOClient():
-    def __init__(self, locontrol):
-        self.locontrol = locontrol
-        self.connected = False
-        self.frame = "MyFrame"
-        self.docu = None
+    def __init__(self, locontrol, ):
+        self.locontrol  = locontrol
+        self.connected  = False
+        self.frame      = "MyFrame"
+        self.docu       = None
 
+    # TODO In the Impress Remote Protocol, when starting a presentation 
+    #      we return (send to the client) all the slide thumbnails of 
+    #      the presentation. These are showed in the remote app
+    #      So this is needed to emulate/ mimic the remote
     def play_file (self, filename, looping):
         filename = os.path.realpath(filename)
         flags = 0
@@ -68,10 +95,13 @@ class UNOClient():
             # page.TransitionDuration = 1.0
             page.TransitionType = 0
 
-        self.docu.Presentation.start()
-        self.locontrol.on_slideshow_started()
         logging.debug("play file %s" % filename)
 
+        # TODO
+        self.locontrol.on_preview()
+        self.locontrol.on_slide_notes()
+
+    # 
     def close_file (self):
         if self.docu:
             self.docu.dispose()
@@ -79,10 +109,25 @@ class UNOClient():
 
         logging.debug("close file")
 
-    def transition_next (self):
-        # Presentation is not available unless we have loaded a presentation (i think)
+    def get_document (self):
+        self.docu = self.desktop.getCurrentComponent()
+
+        print(self.docu)
+
+        # Presentation is not available unless we have loaded 
+        # a presentation (i think)
         # Controller is not available unless we are in slideshow mode
-        if self.docu == None or self.docu.Presentation == None or self.docu.Presentation.Controller == None:
+        if (self.docu == None or 
+            self.docu.Presentation == None):
+            print("can't get document")
+            return False
+
+        # make sure we got the current document
+        return True
+
+    # 
+    def transition_next (self):
+        if not self.get_document():
             return
 
         index   = self.docu.Presentation.Controller.getCurrentSlideIndex()
@@ -97,20 +142,57 @@ class UNOClient():
 
         logging.debug("transition")
 
+    #
+    def transition_previous (self):
+        if not self.get_document():
+            return
+
+        self.docu.Presentation.Controller.gotoPreviousSlide()
+
+    def goto_slide (self, number):
+        if not self.get_document():
+            return
+
+        self.docu.Presentation.Controller.gotoSlideIndex(number)
+
+    def presentation_start (self):
+        if not self.get_document():
+            return
+
+        self.docu.Presentation.start()
+        self.locontrol.on_slideshow_started()
+
+    def presentation_stop (self):
+        if not self.get_document():
+            return
+
+        self.docu.Presentation.stop()
+        self.locontrol.on_slideshow_ended()
+
+    def blank_screen (self):
+        pass
+
+    def resume (self):
+        pass
+
+    # 
     def set_looping (self, looping):
         self.docu.Presentation.IsEndless = looping
 
-    def start (self):
+    # 
+    def start (self, connect=False):
         soffice = "soffice"
         pipename = "libresign"
 
-        # TODO make sure the binary is correct etc
-        args = ["/usr/bin/soffice", '--nologo', '--norestore', '--nodefault', '--accept=pipe,name=libbo;urp']
-        pid = subprocess.Popen(args).pid
-        # TODO make sure it actually started! -- thought if it doesn't it will
-        #      simply fail to connect which is OK
-        print("started libo", pid)
-
+        # only connect, don't start libreoffice
+        if not connect:
+            # TODO make sure the binary is correct etc
+            args = ["/usr/bin/soffice", '--nologo', '--norestore', '--nodefault', '--accept=pipe,name=libbo;urp']
+            pid = subprocess.Popen(args).pid
+            # TODO make sure it actually started! -- thought if it doesn't it will
+            #      simply fail to connect which is OK
+            print("started libo", pid)
+    
         self.local_context = uno.getComponentContext()
         self.resolver = self.local_context.ServiceManager.createInstanceWithContext(
                  'com.sun.star.bridge.UnoUrlResolver', self.local_context)
