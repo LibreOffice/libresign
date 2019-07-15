@@ -43,19 +43,19 @@ connection_url = 'uno:pipe,name=libbo;urp;StarOffice.ComponentContext'
 
 # This class receives messages (IRP) from the UNOClient
 class LiboListener ():
-    def on_slideshow_started (self):
+    def on_slideshow_started (self, num_slides, current_slide):
         pass
 
-    def on_slide_notes (self, num_slides, html):
+    def on_slideshow_ended (self):
+        pass
+
+    def on_slide_notes (self, slide_index, html):
         pass
 
     def on_slide_updated (self, slide_number):
         pass
 
     def on_slide_preview (self, slide_number, image):
-        pass
-
-    def on_slideshow_ended (self):
         pass
 
     def focus_info_screen (self):
