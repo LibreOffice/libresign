@@ -112,8 +112,6 @@ class UNOClient():
     def get_document (self):
         self.docu = self.desktop.getCurrentComponent()
 
-        print(self.docu)
-
         # Presentation is not available unless we have loaded 
         # a presentation (i think)
         # Controller is not available unless we are in slideshow mode
@@ -165,14 +163,16 @@ class UNOClient():
         if not self.get_document():
             return
 
+        pages = self.docu.DrawPages
+
         self.docu.Presentation.start()
-        self.locontrol.on_slideshow_started()
+        self.locontrol.on_slideshow_started(pages.Count, 0)
 
     def presentation_stop (self):
         if not self.get_document():
             return
 
-        self.docu.Presentation.stop()
+        self.docu.Presentation.end()
         self.locontrol.on_slideshow_ended()
 
     def blank_screen (self):
