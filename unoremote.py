@@ -128,6 +128,9 @@ class UNOClient():
         if not self.get_document():
             return
 
+        if not self.docu.Presentation.isRunning():
+            return
+
         index   = self.docu.Presentation.Controller.getCurrentSlideIndex()
         num     = self.docu.Presentation.Controller.getCount()
 
@@ -170,6 +173,9 @@ class UNOClient():
 
     def presentation_stop (self):
         if not self.get_document():
+            return
+
+        if not self.docu.Presentation.isRunning():
             return
 
         self.docu.Presentation.end()
