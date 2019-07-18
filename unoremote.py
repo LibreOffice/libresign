@@ -135,13 +135,14 @@ class UNOClient():
         num     = self.docu.Presentation.Controller.getCount()
 
         # already at last page and we're not looping
+        # TODO dunno if this is actually needed
         if index == num - 1 and not self.docu.Presentation.IsEndless:
             self.close_file()
             self.locontrol.on_slideshow_ended()
         else:
             self.docu.Presentation.Controller.gotoNextSlide()
-
-        logging.debug("transition")
+            index = self.docu.Presentation.Controller.getCurrentSlideIndex()
+            self.locontrol.on_slide_updated(index)
 
     #
     def transition_previous (self):
@@ -152,6 +153,8 @@ class UNOClient():
             return
 
         self.docu.Presentation.Controller.gotoPreviousSlide()
+        index = self.docu.Presentation.Controller.getCurrentSlideIndex()
+        self.locontrol.on_slide_updated(index)
 
     def goto_slide (self, number):
         if not self.get_document():
