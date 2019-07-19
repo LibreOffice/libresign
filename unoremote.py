@@ -164,6 +164,7 @@ class UNOClient():
             return
 
         self.docu.Presentation.Controller.gotoSlideIndex(number)
+        self.locontrol.on_slide_updated(number)
 
     def presentation_start (self):
         if not self.get_document():
