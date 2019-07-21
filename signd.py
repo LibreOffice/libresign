@@ -43,6 +43,7 @@ import web, config
 from playlist import Playlist
 from request import Request
 from locontrol import LibreOfficeController
+import irpjs
  
 class Sign():
     def __init__(self):
@@ -162,6 +163,9 @@ if __name__ == "__main__":
         # default anyway
         if arg == '--conference':
             config.CONFERENCE = True
+
+    # start JS Remote server
+    irpjs.run_irp_server()
 
     sign = Sign()
     sign.setup()
