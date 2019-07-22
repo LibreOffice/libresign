@@ -34,7 +34,7 @@ SAVE_FOLDER         = "./presentations"
 SHOW_INFO_SCREEN    = True
 # conference = manually control slideshows
 # otherwise = signage mode, automatic transitions and changing slides
-CONFERENCE          = True
+CONFERENCE          = False
 
 # disable starting libreoffice (debugging)
 NO_LIBREOFFICE      = False

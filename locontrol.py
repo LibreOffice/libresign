@@ -81,7 +81,7 @@ class LibreOfficeController():
 
             logging.debug("locontrol.py: try transition slide")
 
-    def on_slideshow_started (self):
+    def on_slideshow_started (self, num_slides, current_slide_index):
         self.slideshow_running = True
         self.last_transition = time.time()
 

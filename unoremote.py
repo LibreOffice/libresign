@@ -206,6 +206,9 @@ class UNOClient():
 
     # 
     def set_looping (self, looping):
+        if not self.get_document():
+            return
+
         self.docu.Presentation.IsEndless = looping
 
     # 
@@ -214,7 +217,6 @@ class UNOClient():
         pipename = "libresign"
 
         # only connect, don't start libreoffice
-        print(connect)
         if not connect:
             # TODO make sure the binary is correct etc
             args = ["/usr/bin/soffice", '--nologo', '--norestore', '--nodefault', '--accept=pipe,name=libbo;urp']
