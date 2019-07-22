@@ -8,10 +8,10 @@ if [ ${#1} -eq 0 ]; then
     libo="/usr/lib/libreoffice"
 fi
 
-. env/bin/activate
+# . env/bin/activate
 
 # export PYTHONPATH=$libo:$libo/instdir/program
-export PYTHONPATH=$libo
+export PYTHONPATH=$libo:/usr/lib/python3/dist-packages
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo
 export URE_BOOTSTRAP=$libo/fundamentalrc

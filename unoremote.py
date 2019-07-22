@@ -31,7 +31,6 @@ import os, time, sys, logging
 import subprocess
 
 import uno
-import unohelper
 
 import IPython
 IR = IPython.embed
@@ -95,11 +94,13 @@ class UNOClient():
             # page.TransitionDuration = 1.0
             page.TransitionType = 0
 
-        logging.debug("play file %s" % filename)
+            # send slide's preview image and notes
+            index = 0
+            image_b64 = 'aaa'
+            self.locontrol.on_preview(index, image_b64)
+            self.locontrol.on_slide_notes(index, '<p>1) bla 2) qwe 3) meh meh</p>')
 
-        # TODO
-        self.locontrol.on_preview()
-        self.locontrol.on_slide_notes()
+        logging.debug("play file %s" % filename)
 
     # 
     def close_file (self):
