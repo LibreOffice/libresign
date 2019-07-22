@@ -10,7 +10,6 @@ fi
 
 . env/bin/activate
 
-# export PYTHONPATH=$libo:$libo/instdir/program
 export PYTHONPATH=$libo:/usr/lib/python3/dist-packages
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo

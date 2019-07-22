@@ -37,13 +37,15 @@
 #   start and stop web server
 #   
 
-import time, logging, signal, queue, os, sys
+import time, logging, signal, queue, os, sys, subprocess
 
 import web, config
 from playlist import Playlist
 from request import Request
 from locontrol import LibreOfficeController
-import irpjs
+
+sys.path.append('./irpjs')
+import irp
  
 class Sign():
     def __init__(self):
@@ -165,7 +167,8 @@ if __name__ == "__main__":
             config.CONFERENCE = True
 
     # start JS Remote server
-    irpjs.run_irp_server()
+    args = ['python3', 'irpjs/irp.py']
+    subprocess.Popen(args)
 
     sign = Sign()
     sign.setup()
