@@ -150,5 +150,8 @@ class Playlist():
         return len(self.playlist)
 
     def next (self):
-        self.current = (self.current + 1) % len(self.playlist)
+        if len(self.playlist) == 0:
+            self.current = 0
+        else:
+            self.current = (self.current + 1) % len(self.playlist)
 
