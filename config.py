@@ -39,3 +39,5 @@ CONFERENCE          = True
 # disable starting libreoffice (debugging)
 NO_LIBREOFFICE      = False
 
+JS_REMOTE           = True
+

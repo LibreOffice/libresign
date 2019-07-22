@@ -90,6 +90,15 @@ class LibreOfficeController():
         self.signd.playlist.next()
         self.focus_info_screen()
 
+    def on_preview (self, index, image):
+        pass
+
+    def on_slide_updated (self, index):
+        pass
+
+    def on_slide_notes (self, index, notes):
+        pass
+
     # force screen to front
     def focus_info_screen (self):
         # TODO rename the window to something more likely to be unique,

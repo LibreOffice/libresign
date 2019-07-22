@@ -166,6 +166,9 @@ if __name__ == "__main__":
         if arg == '--conference':
             config.CONFERENCE = True
 
+        if arg == '--noremote':
+            config.JS_REMOTE = False
+
     # start JS Remote server
     args = ['python3', 'irpjs/irp.py']
     subprocess.Popen(args)

@@ -214,6 +214,7 @@ class UNOClient():
         pipename = "libresign"
 
         # only connect, don't start libreoffice
+        print(connect)
         if not connect:
             # TODO make sure the binary is correct etc
             args = ["/usr/bin/soffice", '--nologo', '--norestore', '--nodefault', '--accept=pipe,name=libbo;urp']
@@ -232,9 +233,9 @@ class UNOClient():
         while True:
             tries += 1
 
-            if tries == 100:
-                print("can't connect to libreoffice")
-                return
+            # if tries == 100:
+            #     print("can't connect to libreoffice")
+            #     return 1
 
             try:
                 sys.stdout.write(".")
