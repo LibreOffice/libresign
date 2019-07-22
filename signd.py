@@ -54,7 +54,7 @@ class Sign():
         self.playlist   = Playlist()
         self.locontrol  = LibreOfficeController(self)
         # the interface we are using
-        self.net_iiface = ""
+        self.net_iface = ""
         self.irp_server_process_id  = irp_pid
 
     def network_found(self):
