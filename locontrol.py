@@ -71,10 +71,14 @@ class LibreOfficeController():
                 not self.paused):
             self.try_play_file()
 
+            if not config.CONFERENCE:
+                self.client.presentation_start()
+
         # slideshow is up, transition
         if (self.slideshow_running and 
                 secs > self.last_transition + SLIDE_TIME and
-                not self.paused):
+                not self.paused and
+                not config.CONFERENCE):
 
             self.client.transition_next()
             self.last_transition = secs
@@ -136,13 +140,11 @@ class LibreOfficeController():
         size        = self.signd.playlist.get_playlist_size()
         loop        = size == 1
 
-        if filename:
+        if filename and not self.client.is_file_open():
             filename = 'presentations/' + filename
             self.client.play_file(filename, loop)
             self.current_filename = filename
-            self.client.presentation_start()
-
-        logging.debug("locontrol.py: try play file")
+            logging.debug("locontrol.py: try play file")
 
     # trigger stopping and starting a presentation
     def reload_presentation (self):
@@ -162,6 +164,15 @@ class LibreOfficeController():
     def playlist_changed (self):
         size = self.signd.playlist.get_playlist_size()
         self.client.set_looping(size == 1)
+
+        newfile = self.signd.playlist.get_current()
+        oldfile = self.client.get_current_filename()
+
+        if newfile != oldfile:
+            self.client.close_file()
+            self.try_play_file()
+
+        logging.debug("locontrol.py::playlist_changed()")
 
     def handle_web_request(self, msg):
         mtype = msg.get('type')

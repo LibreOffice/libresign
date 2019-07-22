@@ -68,6 +68,9 @@ class UNOClient():
         self.frame      = "MyFrame"
         self.docu       = None
 
+        self.file_open          = False
+        self.current_filename   = ""
+
     # TODO In the Impress Remote Protocol, when starting a presentation 
     #      we return (send to the client) all the slide thumbnails of 
     #      the presentation. These are showed in the remote app
@@ -101,6 +104,8 @@ class UNOClient():
             self.locontrol.on_slide_notes(index, '<p>1) bla 2) qwe 3) meh meh</p>')
 
         logging.debug("play file %s" % filename)
+        self.file_open = True
+        self.current_filename = filename
 
     # 
     def close_file (self):
@@ -109,6 +114,14 @@ class UNOClient():
             self.docu = None
 
         logging.debug("close file")
+        self.file_open = False
+
+    #
+    def is_file_open (self):
+        return self.file_open
+
+    def get_current_filename (self):
+        return self.current_filename
 
     def get_document (self):
         self.docu = self.desktop.getCurrentComponent()

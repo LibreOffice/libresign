@@ -116,8 +116,7 @@ class Sign():
                 pass
 
             # if we're running with LIBO (debugging) or
-            # in signage mode (in conference we do all this manually)
-            if not config.NO_LIBREOFFICE and not config.CONFERENCE:
+            if not config.NO_LIBREOFFICE:
                 self.locontrol.run_signage()
 
         self.network_lost()
