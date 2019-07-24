@@ -103,27 +103,6 @@ class LibreOfficeController():
     def on_slide_notes (self, index, notes):
         pass
 
-    # force screen to front
-    def focus_info_screen (self):
-        # TODO rename the window to something more likely to be unique,
-        #      like 13827218231683163
-        win_id = None
-
-        try:
-            win_id = xdo.search_windows(b'tk')
-        except:
-            pass
-
-        if win_id and len(win_id):
-            win_id = win_id[0]
-
-            try:
-                xdo.raise_window(win_id)
-            # TODO this happens when i alt-tab while running, i think.
-            #      don't know, but it does happen
-            except:
-                pass
-
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:
             self.info_showing = True
