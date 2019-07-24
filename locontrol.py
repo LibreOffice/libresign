@@ -103,6 +103,9 @@ class LibreOfficeController():
     def on_slide_notes (self, index, notes):
         pass
 
+    def focus_info_screen (self):
+        pass
+
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:
             self.info_showing = True
