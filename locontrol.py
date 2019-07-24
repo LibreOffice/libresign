@@ -117,12 +117,12 @@ class LibreOfficeController():
         if win_id and len(win_id):
             win_id = win_id[0]
 
-            # try:
-            #     xdo.raise_window(win_id)
-            # # TODO this happens when i alt-tab while running, i think.
-            # #      don't know, but it does happen
-            # except:
-            #     pass
+            try:
+                xdo.raise_window(win_id)
+            # TODO this happens when i alt-tab while running, i think.
+            #      don't know, but it does happen
+            except:
+                pass
 
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:

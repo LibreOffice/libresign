@@ -10,7 +10,7 @@ fi
 
 . env/bin/activate
 
-export PYTHONPATH=$libo:/usr/lib/python3/dist-packages
+export PYTHONPATH=$libo:/usr/lib/python3/dist-packages:/usr/lib/python3.7/site-packages
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo
 export URE_BOOTSTRAP=$libo/fundamentalrc
