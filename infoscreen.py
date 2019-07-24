@@ -93,13 +93,6 @@ def info (url):
     app = TKInfoScreen(master=root)
     app.setup(url)
 
-    delay = 500
-
-    def bring_to_top():
-        app.lift()
-        app.after(delay, bring_to_top)
-
-    app.after(delay, bring_to_top)
     app.mainloop()
 
 def start_info (url):

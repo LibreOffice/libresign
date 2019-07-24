@@ -31,11 +31,10 @@ import os, time, sys, logging
 import subprocess
 
 import uno
+import unohelper
 
 import IPython
 IR = IPython.embed
-
-# import com.sun.star.frame.FrameSearchFlag
 
 # This class handles communication with the running LibreOffice instance
 connection_url = 'uno:pipe,name=libbo;urp;StarOffice.ComponentContext'
@@ -275,7 +274,7 @@ class UNOClient():
 
         self.connected = True
         # flags = FrameSearchFlag.CREATE + FrameSearchFlag.ALL
-        flags = 0
+        flags = 8
 
     def stop (self):
         pass
