@@ -232,9 +232,9 @@ class UNOClient():
 
             try:
                 pid = subprocess.check_output(['pidof', 'soffice.bin'])
-                print('soffice.bin running', pid)
+                print('soffice.bin', pid)
                 break
-            except CalledProcessError:
+            except:
                 break
 
     # 

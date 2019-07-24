@@ -103,6 +103,9 @@ class LibreOfficeController():
     def on_slide_notes (self, index, notes):
         pass
 
+    def libreoffice_started (self):
+        print('libreoffice started')
+
     # force screen to front
     def focus_info_screen (self):
         # TODO rename the window to something more likely to be unique,
