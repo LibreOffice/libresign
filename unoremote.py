@@ -97,15 +97,17 @@ class UNOClient():
             # page.TransitionDuration = 1.0
             page.TransitionType = 0
 
-            # send slide's preview image and notes
-            index = 0
-            image_b64 = 'aaa'
-            self.locontrol.on_preview(index, image_b64)
-            self.locontrol.on_slide_notes(index, '<p>1) bla 2) qwe 3) meh meh</p>')
-
         logging.debug("play file %s" % filename)
         self.file_open = True
         self.current_filename = filename
+
+    def get_previews (self):
+        pages = self.docu.DrawPages.ElementNames
+
+        for name in pages:
+            page = self.docu.DrawPages.getByName(name)
+            # self.locontrol.on_slide_preview(index, image_b64)
+            # self.locontrol.on_slide_notes(index, '<p>1) bla 2) qwe 3) meh meh</p>')
 
     # 
     def close_file (self):
