@@ -226,6 +226,17 @@ class UNOClient():
 
         self.docu.Presentation.IsEndless = looping
 
+    def wait_for_soffice (self):
+        while True:
+            time.sleep(0.1)
+
+            try:
+                pid = subprocess.check_output(['pidof', 'soffice.bin'])
+                print('soffice.bin running', pid)
+                break
+            except CalledProcessError:
+                break
+
     # 
     def start (self, connect=False):
         soffice = "soffice"
@@ -239,6 +250,9 @@ class UNOClient():
             # TODO make sure it actually started! -- thought if it doesn't it will
             #      simply fail to connect which is OK
             print("started libo", pid)
+
+            self.wait_for_soffice()
+            self.locontrol.libreoffice_started()
     
         self.local_context = uno.getComponentContext()
         self.resolver = self.local_context.ServiceManager.createInstanceWithContext(
