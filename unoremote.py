@@ -76,7 +76,7 @@ class UNOClient():
     #      So this is needed to emulate/ mimic the remote
     def play_file (self, filename, looping):
         filename = os.path.realpath(filename)
-        flags = 0
+        flags = 8
         self.docu = self.desktop.loadComponentFromURL("file://"+filename, self.frame, flags, ())
 
         # make sure the presentation runs properly
@@ -92,8 +92,8 @@ class UNOClient():
         # set defaults per page
         for name in pages:
             page = self.docu.DrawPages.getByName(name)
-            # page.HighResDuration = 1.0
-            # page.TransitionDuration = 1.0
+            page.HighResDuration = 99999
+            page.TransitionDuration = 99999
             page.TransitionType = 0
 
         logging.debug("play file %s" % filename)
@@ -273,8 +273,6 @@ class UNOClient():
         print("Connected to LibreOffice")
 
         self.connected = True
-        # flags = FrameSearchFlag.CREATE + FrameSearchFlag.ALL
-        flags = 8
 
     def stop (self):
         pass
