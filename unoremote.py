@@ -38,6 +38,9 @@ import unohelper
 import IPython
 IR = IPython.embed
 
+from com.sun.star.beans import PropertyValue
+from com.sun.star.beans.PropertyState import DIRECT_VALUE
+
 # This class handles communication with the running LibreOffice instance
 connection_url = 'uno:pipe,name=libbo;urp;StarOffice.ComponentContext'
 
@@ -109,15 +112,32 @@ class UNOClient():
 
         for name in pages:
             page = self.docu.DrawPages.getByName(name)
-            img = page.Preview.value
+            img = page.PreviewBitmap.value
 
-            f = open('imgfile.bmp', 'wb')
-            f.write(img)
+            filt = self.context.ServiceManager.createInstanceWithContext("com.sun.star.drawing.GraphicExportFilter", self.context)
+            filt.setSourceDocument(page)
+
+            data = []
+            # TODO the pixel width/height are inaccurate, the full-width
+            #      image is created instead
+            data.append(PropertyValue('PixelWidth', 0, '200', DIRECT_VALUE))
+            data.append(PropertyValue('PixelHeight', 0, '120', DIRECT_VALUE))
+            data.append(PropertyValue('ColorMode', 0, '0', DIRECT_VALUE))
+
+            args = []
+            args.append(PropertyValue("MediaType", 0, 'image/png', DIRECT_VALUE))
+            args.append(PropertyValue("URL", 0, 'file:///tmp/preview.png', DIRECT_VALUE))
+            args.append(PropertyValue("FilterData", 0, data, DIRECT_VALUE))
+
+            filt.filter(args)
+
+            f = open('/tmp/preview.png', 'rb')
+            img = f.read()
             f.close()
 
             b64 = base64.b64encode(img)
 
-            previews.append('data:image/bmp;base64,{}'.format(b64.decode()))
+            previews.append('data:image/png;base64,{}'.format(b64.decode()))
             break
 
         return previews
