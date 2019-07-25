@@ -92,7 +92,6 @@ def info (url):
 
     app = TKInfoScreen(master=root)
     app.setup(url)
-
     app.mainloop()
 
 def start_info (url):

@@ -28,7 +28,9 @@
 #
 from sys import stderr
 import os, time, sys, logging
-import subprocess
+import subprocess, base64
+
+from PIL import Image
 
 import uno
 import unohelper
@@ -102,12 +104,40 @@ class UNOClient():
         self.locontrol.focus_info_screen()
 
     def get_previews (self):
+        previews = []
         pages = self.docu.DrawPages.ElementNames
 
         for name in pages:
             page = self.docu.DrawPages.getByName(name)
-            # self.locontrol.on_slide_preview(index, image_b64)
-            # self.locontrol.on_slide_notes(index, '<p>1) bla 2) qwe 3) meh meh</p>')
+            img = page.Preview.value
+
+            f = open('imgfile.bmp', 'wb')
+            f.write(img)
+            f.close()
+
+            b64 = base64.b64encode(img)
+
+            previews.append('data:image/bmp;base64,{}'.format(b64.decode()))
+            break
+
+        return previews
+
+    #
+    def get_notes (self):
+        notes = []
+        pages = self.docu.DrawPages.ElementNames
+
+        for name in pages:
+            page = self.docu.DrawPages.getByName(name)
+            notes.append(self.get_page_notes(page))
+
+        return notes
+
+    def get_page_notes (self, page):
+        notes_page = page.getNotesPage()
+        count = notes_page.Count
+        service = notes_page.getByIndex(1)
+        return service.String
 
     # 
     def close_file (self):
@@ -191,6 +221,13 @@ class UNOClient():
         self.docu.Presentation.start()
         self.locontrol.on_slideshow_started(pages.Count, 0)
 
+        previews = self.get_previews()
+        notes = self.get_notes()
+
+        for c in range(len(previews)):
+            self.locontrol.on_slide_preview(c, previews[c])
+            self.locontrol.on_slide_notes(c, notes[c])
+
     def presentation_stop (self):
         if not self.get_document():
             return
@@ -273,6 +310,8 @@ class UNOClient():
         print("Connected to LibreOffice")
 
         self.connected = True
+
+        self.presentation_start()
 
     def stop (self):
         pass
