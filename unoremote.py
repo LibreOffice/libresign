@@ -138,7 +138,6 @@ class UNOClient():
             b64 = base64.b64encode(img)
 
             previews.append('data:image/png;base64,{}'.format(b64.decode()))
-            break
 
         return previews
 
