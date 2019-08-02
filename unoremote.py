@@ -244,6 +244,7 @@ class UNOClient():
         pages = self.docu.DrawPages
         self.locontrol.on_slideshow_started(pages.Count, 0)
 
+    def send_slide_info (self):
         previews = self.get_previews()
         notes = self.get_notes()
 
