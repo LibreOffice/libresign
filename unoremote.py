@@ -90,10 +90,10 @@ class UNOClient():
         self.docu.Presentation.IsFullScreen         = True
         self.docu.Presentation.IsMouseVisible       = False
         self.docu.Presentation.IsTransitionOnClick  = False
-        self.docu.Presentation.Pause                = 0
+        self.docu.Presentation.Pause                = 1
 
         pages = self.docu.DrawPages.ElementNames
-        
+
         # set defaults per page
         for name in pages:
             page = self.docu.DrawPages.getByName(name)
@@ -180,13 +180,14 @@ class UNOClient():
         # Presentation is not available unless we have loaded 
         # a presentation (i think)
         # Controller is not available unless we are in slideshow mode
-        if (self.docu == None or 
-            self.docu.Presentation == None):
-            print("can't get document")
-            return False
+        try:
+            if (self.docu != None and
+                self.docu.Presentation != None):
+                return True
+        except:
+            return False 
 
-        # make sure we got the current document
-        return True
+        return False
 
     # 
     def transition_next (self):
@@ -235,9 +236,12 @@ class UNOClient():
         if not self.get_document():
             return
 
-        pages = self.docu.DrawPages
+        # already running
+        if self.docu.Presentation.isRunning():
+            return
 
         self.docu.Presentation.start()
+        pages = self.docu.DrawPages
         self.locontrol.on_slideshow_started(pages.Count, 0)
 
         previews = self.get_previews()
