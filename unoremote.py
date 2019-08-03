@@ -53,6 +53,9 @@ class LiboListener ():
     def focus_info_screen (self):
         pass
 
+    def error_no_document (self):
+        pass
+
 # This class handles communication with the running LibreOffice instance
 class UNOClient():
     def __init__(self, locontrol, ):
@@ -242,6 +245,10 @@ class UNOClient():
     def send_slide_info (self):
         previews = self.get_previews()
         notes = self.get_notes()
+
+        # no document / no document.DrawPages
+        if len(previews) == 0 or len(notes) == 0:
+            self.locontrol.on_no_document()
 
         for c in range(len(previews)):
             self.locontrol.on_slide_preview(c, previews[c])
