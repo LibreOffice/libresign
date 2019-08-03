@@ -272,6 +272,8 @@ class UNOClient():
             return
 
         self.docu.Presentation.Controller.blankScreen(0)
+        # NOTE only sending to notify JS Remote of success
+        self.locontrol.on_slide_updated(0)
 
     def resume (self):
         if not self.get_document():
@@ -281,6 +283,7 @@ class UNOClient():
             return
 
         self.docu.Presentation.Controller.resume()
+        self.locontrol.on_slide_updated(0)
 
     # 
     def set_looping (self, looping):
