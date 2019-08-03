@@ -97,6 +97,10 @@ class UNOClient():
 
     def get_previews (self):
         previews = []
+
+        if not self.get_document():
+            return previews
+
         pages = self.docu.DrawPages.ElementNames
 
         for name in pages:
@@ -133,11 +137,13 @@ class UNOClient():
     #
     def get_notes (self):
         notes = []
-        pages = self.docu.DrawPages.ElementNames
 
-        for name in pages:
-            page = self.docu.DrawPages.getByName(name)
-            notes.append(self.get_page_notes(page))
+        if self.get_document():
+            pages = self.docu.DrawPages.ElementNames
+    
+            for name in pages:
+                page = self.docu.DrawPages.getByName(name)
+                notes.append(self.get_page_notes(page))
 
         return notes
 
