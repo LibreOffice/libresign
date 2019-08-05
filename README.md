@@ -7,3 +7,7 @@ sudo apt-get install python3 python3-pip virtualenv python3-tk
 ./setup.sh
 ./run.sh
 ```
+
+## Wishlist
+
+

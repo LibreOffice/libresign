@@ -5,3 +5,6 @@ env/
 presentations/
 playlist
 irpjs
+build/
+dist/
+libresign.egg-info/
