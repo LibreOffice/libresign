@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd libresign
 libo=$1
 
 if [ ${#1} -eq 0 ]; then 

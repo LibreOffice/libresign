@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd ../libresign
 mkdir presentations
 touch playlist
 git clone https://github.com/rptr/irpjs.git
