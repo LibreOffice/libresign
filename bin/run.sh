@@ -1,6 +1,25 @@
 #!/bin/bash
 
 cd libresign
+
+# setup
+if [ ! -d "irpjs" ] then
+    git clone https://github.com/rptr/irpjs.git
+fi
+
+if [ ! -d "presentations" ] then
+    mkdir presentations
+fi
+
+if [ ! -d "env" ] then
+    virtualenv -p python3 env
+    source env/bin/activate
+    pip3 install Flask python-libxdo gevent-websocket
+fi
+
+touch playlist
+
+# run
 libo=$1
 
 if [ ${#1} -eq 0 ]; then 
