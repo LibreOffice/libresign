@@ -3,15 +3,15 @@
 cd libresign
 
 # setup
-if [ ! -d "irpjs" ] then
+if [ ! -d "irpjs" ]; then
     git clone https://github.com/rptr/irpjs.git
 fi
 
-if [ ! -d "presentations" ] then
+if [ ! -d "presentations" ]; then
     mkdir presentations
 fi
 
-if [ ! -d "env" ] then
+if [ ! -d "env" ]; then
     virtualenv -p python3 env
     source env/bin/activate
     pip3 install Flask python-libxdo gevent-websocket
