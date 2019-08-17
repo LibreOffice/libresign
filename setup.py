@@ -4,7 +4,7 @@ readme = ""
 
 setuptools.setup(
     name="libresign",
-    version="0.0.3",
+    version="0.0.6",
     author="Rasmus P J",
     author_email="wasmus@zom.bi",
     description="Digital signage solution for LibreOffice.",
@@ -17,5 +17,7 @@ setuptools.setup(
         "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
         "Operating System :: POSIX :: Linux"
     ],
-    scripts=['bin/libresign']
+    scripts=['bin/libresign'],
+    entry_points={
+    },
 )

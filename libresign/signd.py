@@ -131,6 +131,9 @@ class Sign():
     def get_playlist (self):
         return self.playlist
 
+def run_script():
+    print('running...')
+
 if __name__ == "__main__":
     for arg in sys.argv:
         # run only the web server (control panel) (debugging)
