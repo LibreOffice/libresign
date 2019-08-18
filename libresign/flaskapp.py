@@ -19,10 +19,15 @@ import os
 from flask import Flask, request, render_template, redirect, send_file
 
 import libresign.config as config
-import libresign.web as web
 from libresign.request import Request
 
 app = Flask(__name__)
+web = None
+
+def run (web_):
+    global web
+    web = web_
+    app.run(debug=True, use_reloader=False, threaded=True, port=config.HTTP_PORT, host="0.0.0.0")
 
 # in case we want to add some more bells and whistles
 def file_request (request_type):

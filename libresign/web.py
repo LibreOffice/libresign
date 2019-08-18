@@ -50,14 +50,18 @@ def stop():
     # TODO use other server than werkzeug and deal with shutdown at that point
     pass
 
-def web_thread():
-    logging.info("starting web server")
-    flaskapp.app.run(debug=True, use_reloader=False, threaded=True, port=config.HTTP_PORT, host="0.0.0.0")
-    logging.info("stopping web server")
+class WebPusher():
+    def push_request (self, request):
+        global msg_queue
 
-def push_request (request):
-    if msg_queue:
-        msg_queue.put(request)
+        if msg_queue:
+            msg_queue.put(request)
+
+def web_thread():
+    web = WebPusher()
+    logging.info("starting web server")
+    flaskapp.run(web)
+    logging.info("stopping web server")
 
 def get_playlist ():
     playlist = signd.get_playlist()
