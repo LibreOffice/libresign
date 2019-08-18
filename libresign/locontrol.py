@@ -24,10 +24,12 @@ import time, logging
 from xdo import Xdo
 xdo = Xdo()
 
-from request import Request
-import infoscreen, config, web
-import unoremote 
-import config as Config
+from libresign.request import Request
+import libresign.infoscreen as infoscreen
+import libresign.config as config
+import libresign.web as web
+import libresign.unoremote as unoremote
+import libresign.config as Config
 
 # temp
 SLIDE_TIME = 2

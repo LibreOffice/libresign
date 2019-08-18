@@ -27,7 +27,8 @@
 
 import time, logging, signal, queue, os, sys, subprocess
 
-import web, config
+import libresign.web as web
+import libresign.config as config
 from playlist import Playlist
 from request import Request
 from locontrol import LibreOfficeController

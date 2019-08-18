@@ -22,8 +22,9 @@
 
 import threading, logging, socket, subprocess, string
 
-import request as requests
-import flaskapp, config
+import libresign.request as requests
+import libresign.flaskapp as flaskapp
+import libresign.config as config
 
 # TODO wrap this up into a class
 

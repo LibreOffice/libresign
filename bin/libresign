@@ -14,7 +14,7 @@ if [ ! -d "presentations" ]; then
 fi
 
 if [ ! -d "env" ]; then
-    virtualenv -p python3 env
+    virtualenv --system-site-packages -p python3 env
     source env/bin/activate
     pip3 install Flask python-libxdo gevent-websocket
 fi
@@ -32,9 +32,9 @@ fi
 
 . env/bin/activate
 
-export PYTHONPATH=$libo:/usr/lib/python3/dist-packages
+export PYTHONPATH=$libo
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo
 export URE_BOOTSTRAP=$libo/fundamentalrc
-python3 signd.py $@
+python3 -c "import libresign.signd; libresign.signd.run_script()"
 

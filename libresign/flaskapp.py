@@ -18,8 +18,9 @@
 import os
 from flask import Flask, request, render_template, redirect, send_file
 
-import web, config
-from request import Request
+import libresign.config as config
+import libresign.web as web
+from libresign.request import Request
 
 app = Flask(__name__)
 

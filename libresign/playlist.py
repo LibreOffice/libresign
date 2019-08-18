@@ -16,8 +16,9 @@
 # Rasmus P J <wasmus@zom.bi>
 #
 import os
-import config
-from request import Request
+
+import libresign.config as config
+from libresign.request import Request
 
 class Playlist():
     def __init__ (self):
