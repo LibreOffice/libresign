@@ -1,5 +1,55 @@
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a:link
+{
+    color: blue;
+}
+
+a:visited
+{
+    color: blue;
+}
+
+#topheader
+{
+    text-align: center;
+}
+
+.sortableFiles
+{
+    list-style: none;
+    padding: 0px;
+}
+
+.sortablePlaylist
+{
+    list-style: none;
+    padding: 0px;
+}
+
+.playlist_item
+{
+    height: 40px;
+    margin: 2px;
+    padding: 10px;
+    border-color: grey;
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+}
+
+.playlist_title
+{
+    float: left;
+    margin: 0px;
+}
+
 .playlist_dropdown
 {
+    text-decoration: none;
+    text-weight: bold;
 }
 
 .playlist_dropdown_menu
@@ -7,10 +57,23 @@
     display: none;
 }
 
-.playlist_item
+#upload_box
 {
-    margin: 2px;
-    padding: 10px;
-    border: 1px black solid;
+    width 100%;
+    height: 150px;
+    background-color: #EEE;
+    padding: 30px 0px 0px 30px;
 }
 
+.upload_button
+{
+}
+
+.upload_input
+{
+    background-color: #FFF;
+}
+
+#upload_title
+{
+}

@@ -2,7 +2,7 @@
 {% block body %}
 <section class="">
   <div class="">
-    <p>LibreOffice Screen Control Panel</p> 
+    <h1 id="topheader">LibreOffice Screen Control Panel</h1> 
 
     <button onclick="request('play');">Play presentation</button>
     <button onclick="request('pause');">Pause presentation</button>
@@ -11,25 +11,27 @@
 
     <a href="#">Impress Remote</a>
 
-    <h4>Playlist</h4>
+    <h3>Playlist</h3>
     <div>
 		<ul class="sortablePlaylist" id="playlist">
         {% for item in playlist %}
             <li class="playlist_item">
                 {% if item.file == currently_playing %}
-                [[[Playing now]]]
+                <p class="playlist_title">[[[Playing now]]]</p>
                 {% endif %}
-                {{item["file"]}}
+                <p class="playlist_title">{{item["file"]}}</p>
 
-                <a href="#" onclick="request('play_file', 'file={{item.file}}');">Play</a>
-                <a href="download/{{item["file"]}}" download>Download</a>
-                <a href="#" onclick="request('remove_file', 'file={{item.file}}');">Remove</a>
+<!--                 <a href="#" onclick="request('play_file', 'file={{item.file}}');">Play</a> -->
+<!--                 <a href="download/{{item["file"]}}" download>Download</a> -->
+<!--                 <a href="#" onclick="request('remove_file', 'file={{item.file}}');">Remove</a> -->
+
+                <a href="#" class="playlist_dropdown">More v</a>
             </li>
         {% endfor %}
 		</ul>
     </div>
 
-    <h4>Files</h4>
+    <h3>Uploaded presentations</h3>
     <div>
 		<ul class="sortableFiles" id="files">
         {% for item in files%}
@@ -43,13 +45,16 @@
 		</ul>
     </div>
 
-    <p>Upload presentation</p>
-    <form method="post" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <button type="submit" value="Upload">
-            Upload file
-        </button>
-    </form>
+    <div id="upload_box">
+        <h1 id="upload_title">Upload presentation</h1>
+
+        <form method="post" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file" class="upload_input">
+            <button type="submit" value="Upload" class="upload_button">
+                Upload file
+            </button>
+        </form>
+    </div>
 
   </div>
 </section>
