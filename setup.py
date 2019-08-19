@@ -19,6 +19,7 @@ setuptools.setup(
         "Operating System :: POSIX :: Linux"
     ],
     scripts=['bin/libresign'],
-    entry_points={
-    },
+    install_requires=[
+        'irpjs'
+    ],
 )
