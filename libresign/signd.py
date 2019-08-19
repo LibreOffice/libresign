@@ -36,14 +36,13 @@ from libresign.locontrol import LibreOfficeController
 import irpjs.irp as irp
  
 class Sign():
-    def __init__(self, irp_pid = 0):
+    def __init__(self):
         self.running    = True
         self.messages   = queue.Queue()
         self.playlist   = Playlist()
         self.locontrol  = LibreOfficeController(self)
         # the interface we are using
         self.net_iface = ""
-        self.irp_server_process_id  = irp_pid
 
     def network_found(self):
         # logging.info("network found")
@@ -158,8 +157,8 @@ def run_script():
             config.JS_REMOTE = False
 
     # start JS Remote server
-    args = ['python3', 'irpjs/irp.py']
-    irp_pid = subprocess.Popen(args).pid
+    args = ['python3', '-m', 'irpjs.irp']
+    subprocess.Popen(args)
 
     sign = Sign()
     sign.setup()
