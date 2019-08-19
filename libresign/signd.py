@@ -33,8 +33,7 @@ from libresign.playlist import Playlist
 from libresign.request import Request
 from libresign.locontrol import LibreOfficeController
 
-sys.path.append('/home/rpj/libresign/irpjs')
-import irp
+import irpjs.irp as irp
  
 class Sign():
     def __init__(self, irp_pid = 0):

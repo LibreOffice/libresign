@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<!-- <meta http-equiv="refresh" content="1"> -->
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../static/css/style.css">
+        <script src="{{url_for('static', filename='html5sortable.js')}}"></script>
+    </head>
+
+    <body>
+    {% block body %}{% endblock %}
+    {% block scripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,2 @@
+recursive-include libresign/templates *
+recursive-include libresign/static *

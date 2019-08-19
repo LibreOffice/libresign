@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="">
+  <div class="">
+    <p>LibreOffice Screen Control Panel</p> 
+
+    <button onclick="request('play');">Play presentation</button>
+    <button onclick="request('pause');">Pause presentation</button>
+    <button onclick="request('next');">Next presentation</button>
+    <button onclick="request('previous');">Previous presentation</button>
+
+    <a href="#">Impress Remote</a>
+
+    <h4>Playlist</h4>
+    <div>
+		<ul class="sortablePlaylist" id="playlist">
+        {% for item in playlist %}
+            <li class="playlist_item">
+                {% if item.file == currently_playing %}
+                [[[Playing now]]]
+                {% endif %}
+                {{item["file"]}}
+
+                <a href="#" onclick="request('play_file', 'file={{item.file}}');">Play</a>
+                <a href="download/{{item["file"]}}" download>Download</a>
+                <a href="#" onclick="request('remove_file', 'file={{item.file}}');">Remove</a>
+            </li>
+        {% endfor %}
+		</ul>
+    </div>
+
+    <h4>Files</h4>
+    <div>
+		<ul class="sortableFiles" id="files">
+        {% for item in files%}
+            <li class="playlist_item" id="{{item}}">
+                {{item}}
+
+                <a href="#" onclick="queue_file('{{item}}', 0);">Add to playlist</a>
+                <a href="download/{{item}}" download>Download</a>
+            </li>
+        {% endfor %}
+		</ul>
+    </div>
+
+    <p>Upload presentation</p>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit" value="Upload">
+            Upload file
+        </button>
+    </form>
+
+  </div>
+</section>
+
+<script type="text/javascript">
+    var playlist = sortable('.sortablePlaylist', {
+        acceptFrom: '.sortableFiles, .sortablePlaylist'
+    });
+
+    var files = sortable('.sortableFiles', {
+        acceptFrom: ''
+    });
+
+    playlist[0].addEventListener('sortupdate', function (e)
+    {
+        var container_id        = e.detail.origin.container.id;
+        var dest_container_id   = e.detail.destination.container.id;
+
+        // move file to playlist
+        if (container_id == "files" && dest_container_id == "playlist")
+        {
+            var new_index = e.detail.destination.index;
+            var filename  = e.detail.item.id;
+
+            queue_file(filename, new_index);
+        }
+
+        // reorder playlist -- not implemented for files (no point)
+        if (container_id == "playlist" && dest_container_id == "playlist")
+        {
+            var old_index = e.detail.origin.index;
+            var new_index = e.detail.destination.index;
+
+            request('order', "from="+old_index+"&to="+new_index);
+            console.log("reorder playlist");
+        }
+    });
+
+    function queue_file (filename, index)
+    {
+        request('queue_file', "to="+index+"&file="+filename);
+        console.log("queue file", filename, index);
+    }
+
+    function request (type, data)
+    {
+        var r = new XMLHttpRequest();
+        r.open("POST", '/'+type, true);
+        r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        r.send(data);
+    }
+</script>
+
+{% endblock %}
