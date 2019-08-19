@@ -4,11 +4,6 @@ cd ~
 mkdir libresign
 cd libresign
 
-# setup
-if [ ! -d "irpjs" ]; then
-    git clone https://github.com/rptr/irpjs.git
-fi
-
 if [ ! -d "presentations" ]; then
     mkdir presentations
 fi
