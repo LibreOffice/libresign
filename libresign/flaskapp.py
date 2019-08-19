@@ -27,7 +27,7 @@ web = None
 def run (web_):
     global web
     web = web_
-    app.run(debug=True, use_reloader=False, threaded=True, port=config.HTTP_PORT, host="0.0.0.0")
+    app.run(debug=True, use_reloader=False, threaded=True, port=config.HTTP_PORT, host="0.0.0.0", template_folder='templates')
 
 # in case we want to add some more bells and whistles
 def file_request (request_type):

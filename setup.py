@@ -12,6 +12,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://rptr.github.io/gsoc/",
     packages=setuptools.find_packages(),
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
