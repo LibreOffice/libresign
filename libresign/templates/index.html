@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
 <section class="">
-  <div class="">
+  <div id="main_holder">
     <h1 id="topheader">LibreOffice Screen Control Panel</h1> 
 
     <button onclick="request('play');">Play presentation</button>
@@ -38,8 +38,9 @@
             <li class="playlist_item" id="{{item}}">
                 {{item}}
 
-                <a href="#" onclick="queue_file('{{item}}', 0);">Add to playlist</a>
-                <a href="download/{{item}}" download>Download</a>
+                <!-- <a href="#" onclick="queue_file('{{item}}', 0);">Add to playlist</a> -->
+                <!-- <a href="download/{{item}}" download>Download</a> -->
+                <a href="#" class="playlist_dropdown">More v</a>
             </li>
         {% endfor %}
 		</ul>

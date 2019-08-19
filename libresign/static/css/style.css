@@ -13,6 +13,11 @@ a:visited
     color: blue;
 }
 
+#main_holder
+{
+    max-width: 700px;
+}
+
 #topheader
 {
     text-align: center;
@@ -32,7 +37,7 @@ a:visited
 
 .playlist_item
 {
-    height: 40px;
+    height: 15px;
     margin: 2px;
     padding: 10px;
     border-color: grey;
@@ -49,12 +54,18 @@ a:visited
 .playlist_dropdown
 {
     text-decoration: none;
-    text-weight: bold;
+    float: right;
 }
 
 .playlist_dropdown_menu
 {
     display: none;
+}
+
+.files_dropdown
+{
+    text-decoration: none;
+    float: right;
 }
 
 #upload_box
