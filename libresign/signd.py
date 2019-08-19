@@ -29,11 +29,11 @@ import time, logging, signal, queue, os, sys, subprocess
 
 import libresign.web as web
 import libresign.config as config
-from playlist import Playlist
-from request import Request
-from locontrol import LibreOfficeController
+from libresign.playlist import Playlist
+from libresign.request import Request
+from libresign.locontrol import LibreOfficeController
 
-sys.path.append('./irpjs')
+sys.path.append('/home/rpj/libresign/irpjs')
 import irp
  
 class Sign():

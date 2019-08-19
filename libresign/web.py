@@ -57,23 +57,23 @@ class WebPusher():
         if msg_queue:
             msg_queue.put(request)
 
+    def get_playlist (self):
+        playlist = signd.get_playlist()
+        return playlist.playlist
+    
+    def get_all_files (self):
+        playlist = signd.get_playlist()
+        return playlist.all_files
+    
+    def get_current_playlist_item (self):
+        playlist = signd.get_playlist()
+        return playlist.get_current()
+
 def web_thread():
     web = WebPusher()
     logging.info("starting web server")
     flaskapp.run(web)
     logging.info("stopping web server")
-
-def get_playlist ():
-    playlist = signd.get_playlist()
-    return playlist.playlist
-
-def get_all_files ():
-    playlist = signd.get_playlist()
-    return playlist.all_files
-
-def get_current_playlist_item ():
-    playlist = signd.get_playlist()
-    return playlist.get_current()
 
 def get_addr_1 ():
     # NOTE linux only -- best i could do
