@@ -248,7 +248,7 @@ class UNOClient():
 
         # no document / no document.DrawPages
         if len(previews) == 0 or len(notes) == 0:
-            self.locontrol.on_no_document()
+            self.locontrol.error_no_document()
 
         for c in range(len(previews)):
             self.locontrol.on_slide_preview(c, previews[c])
