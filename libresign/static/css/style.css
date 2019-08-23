@@ -1,6 +1,8 @@
 body
 {
     font-family: Arial, Helvetica, sans-serif;
+    background-image: url('/static/bg_blue.jpg');
+    overflow: hidden;
 }
 
 a:link
@@ -13,9 +15,60 @@ a:visited
     color: blue;
 }
 
+h3
+{
+    border-bottom: 1px solid black;
+}
+
+.menu_button
+{
+    position: relative;
+    background-color: #6B4;
+    padding: 5px 8px;
+    color: #FFF;
+    box-shadow: 2px 2px #333;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.menu_button:hover
+{
+    background-color: #7FCF5F;
+}
+
+.menu_button:visited
+{
+    color: #FFF;
+}
+
+.menu_button:active
+{
+    left: 2px;
+    top: 2px;
+    color: #FFF;
+    box-shadow: 0px 0px;
+}
+
+.inactive
+{
+    background-color: #AAA;
+}
+
+#main_center
+{
+    position: absolute;
+    left: 50%;
+}
+
 #main_holder
 {
+    position: relative;
+    left: -50%;
+    width: 700px;
     max-width: 700px;
+    background-color: #FFF;
+    padding: 20px;
+    box-shadow: 5px 10px #333;
 }
 
 #topheader
@@ -35,31 +88,104 @@ a:visited
     padding: 0px;
 }
 
+.playlist_button
+{
+    position: relative;
+    top: 4px;
+    float: right;
+    margin: 0px 4px;
+    padding: 2px 4px;
+    background-color: #46B;
+    color: #FFF;
+    box-shadow: 2px 2px #333;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.playlist_button:link
+{
+    color: #fff;
+}
+
+.playlist_button:visited
+{
+    color: #fff;
+}
+
+.playlist_button:hover
+{
+    color: #fff;
+}
+
+.playlist_button:active
+{
+    left: 2px;
+    top: 6px;
+    color: #fff;
+    box-shadow: 0px 0px;
+}
+
 .playlist_item
 {
-    height: 15px;
-    margin: 2px;
-    padding: 10px;
+    height: 30px;
+    margin: 0px;
+    padding: 0px;
     border-color: grey;
     border-width: 1px 0px 0px 0px;
     border-style: solid;
 }
 
+.playlist_item:hover
+{
+    background-color: #EEE;
+}
+
+.playlist_item_selected
+{
+    height: 30px;
+    margin: 0px;
+    padding: 0px;
+    border-color: grey;
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    background-color: #EFE;
+}
+
+.playlist_item_selected:hover
+{
+    background-color: #EEFEEE;
+}
+
 .playlist_title
 {
     float: left;
-    margin: 0px;
+    margin: 5px;
 }
 
 .playlist_dropdown
 {
     text-decoration: none;
     float: right;
+    outline: none;
+    background-color: inherit;
+    margin: 0px;
+    padding: 5px;
+    border: none;
+}
+
+.playlist_dropdown:hover
+{
+    font-weight: bold;
 }
 
 .playlist_dropdown_menu
 {
     display: none;
+    float: none;
+    z-index: 1;
+    position: absolute;
+    border: 1px black solid;
+    width: 100px;
 }
 
 .files_dropdown
@@ -87,4 +213,22 @@ a:visited
 
 #upload_title
 {
+}
+
+#footer
+{
+}
+
+#footer p
+{
+    float: left;
+    margin: 2px 8px;
+    font-size: 14px;
+}
+
+#footer a
+{
+    float: right;
+    margin: 2px 8px;
+    font-size: 14px;
 }

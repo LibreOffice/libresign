@@ -1,31 +1,47 @@
 {% extends "base.html" %}
 {% block body %}
 <section class="">
+  <div id="main_center">
   <div id="main_holder">
     <h1 id="topheader">LibreOffice Screen Control Panel</h1> 
 
-    <button onclick="request('play');">Play presentation</button>
-    <button onclick="request('pause');">Pause presentation</button>
-    <button onclick="request('next');">Next presentation</button>
-    <button onclick="request('previous');">Previous presentation</button>
+    <!-- <button onclick="request('play');">Play presentation</button> -->
+    <!-- <button onclick="request('pause');">Pause presentation</button> -->
+    <!-- <button onclick="request('next');">Next presentation</button> -->
+    <!-- <button onclick="request('previous');">Previous presentation</button> -->
 
-    <a href="#">Impress Remote</a>
+    <a class="menu_button" href="http://127.0.0.1:8080">Impress Remote</a>
+    <a class="menu_button inactive" href="#">Conference Mode</a>
+    <a class="menu_button" href="#">Sign Mode</a>
 
     <h3>Playlist</h3>
     <div>
 		<ul class="sortablePlaylist" id="playlist">
         {% for item in playlist %}
-            <li class="playlist_item">
-                {% if item.file == currently_playing %}
-                <p class="playlist_title">[[[Playing now]]]</p>
-                {% endif %}
+            {% if item.file == currently_playing %}
+                <li class="playlist_item_selected">
+            {% else %}
+                <li class="playlist_item">
+            {% endif %}
                 <p class="playlist_title">{{item["file"]}}</p>
 
-<!--                 <a href="#" onclick="request('play_file', 'file={{item.file}}');">Play</a> -->
-<!--                 <a href="download/{{item["file"]}}" download>Download</a> -->
-<!--                 <a href="#" onclick="request('remove_file', 'file={{item.file}}');">Remove</a> -->
+                <a class="playlist_button" 
+                   href="#" onclick="request('play_file', 'file={{item.file}}');">
+                    Play
+                </a>
+                <a class="playlist_button" 
+                   href="#" onclick="request('remove_file', 'file={{item.file}}');">
+                    Remove
+                </a>
 
-                <a href="#" class="playlist_dropdown">More v</a>
+                <!-- <button class="playlist_dropdown" --> 
+                <!--         onmouseover="hover_playlist();"> -->
+                <!--     More v -->
+                <!-- </button> -->
+
+            <!-- <div class="playlist_dropdown_menu"> -->
+            <!--     <p>hi</p> -->
+            <!-- </div> -->
             </li>
         {% endfor %}
 		</ul>
@@ -36,11 +52,11 @@
 		<ul class="sortableFiles" id="files">
         {% for item in files%}
             <li class="playlist_item" id="{{item}}">
-                {{item}}
+                <p class="playlist_title">{{item}}</p>
 
-                <!-- <a href="#" onclick="queue_file('{{item}}', 0);">Add to playlist</a> -->
-                <!-- <a href="download/{{item}}" download>Download</a> -->
-                <a href="#" class="playlist_dropdown">More v</a>
+                <a class="playlist_button" href="#" onclick="queue_file('{{item}}', 0);">Add to playlist</a>
+                <a class="playlist_button" href="topdownload/{{item}}" download>Download</a>
+                <!-- <button class="playlist_dropdown">More v</button> -->
             </li>
         {% endfor %}
 		</ul>
@@ -57,6 +73,12 @@
         </form>
     </div>
 
+    <div id="footer">
+    <p>The Document Foundation</p>
+    <a href="https://rptr.github.io/gsoc">Website</a>
+    <a href="https://github.com/rptr/libresign">Github</a>
+    </div>
+  </div>
   </div>
 </section>
 
@@ -106,6 +128,10 @@
         r.open("POST", '/'+type, true);
         r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         r.send(data);
+    }
+
+    function hover_playlist (index)
+    {
     }
 </script>
 
