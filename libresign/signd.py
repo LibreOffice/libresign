@@ -32,8 +32,6 @@ import libresign.config as config
 from libresign.playlist import Playlist
 from libresign.request import Request
 from libresign.locontrol import LibreOfficeController
-
-import irpjs.irp as irp
  
 class Sign():
     def __init__(self):
