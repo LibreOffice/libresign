@@ -158,6 +158,10 @@ def run_script():
     args = ['python3', '-m', 'irpjs.irp']
     subprocess.Popen(args)
 
+    # start JS Remote HTTP server
+    args = ['python3', '-m', 'http.server', '5200', '--directory', '/home/rpj/.libresign/impress-remote-js']
+    subprocess.Popen(args)
+
     sign = Sign()
     sign.setup()
 

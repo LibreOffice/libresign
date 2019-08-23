@@ -1,8 +1,15 @@
 #!/bin/bash
 
+# all this setup shouldn't do anything if it's been set up before
 cd ~
-mkdir libresign
-cd libresign
+mkdir .libresign
+cd .libresign
+
+git clone https://github.com/rptr/impress-remote-js.git
+cd impress-remote-js
+git clone https://github.com/rptr/irpjs-client.git
+
+cd ~/.libresign
 
 if [ ! -d "presentations" ]; then
     mkdir presentations
@@ -31,5 +38,5 @@ export PYTHONPATH=$libo
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo
 export URE_BOOTSTRAP=$libo/fundamentalrc
-python3 -c "import libresign.signd; libresign.signd.run_script()"
+python3 -c "import libresign.signd; libresign.signd.run_script()" $@
 
