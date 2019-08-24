@@ -129,7 +129,12 @@ class Sign():
         return self.playlist
 
 def run_script():
-    for arg in sys.argv:
+    home_dir = '~'
+    args = sys.argv
+
+    for i in range(len(args)):
+        arg = args[i]
+
         # run only the web server (control panel) (debugging)
         if arg == '--onlyweb':
             config.NO_LIBREOFFICE = True
@@ -154,12 +159,18 @@ def run_script():
         if arg == '--noremote':
             config.JS_REMOTE = False
 
+        if arg == '--libresign-home':
+            home_dir = args[i + 1]
+            i += 1
+
+            print('libresign home', home_dir)
+
     # start JS Remote server
     args = ['python3', '-m', 'irpjs.irp']
     subprocess.Popen(args)
 
     # start JS Remote HTTP server
-    args = ['python3', '-m', 'http.server', '5200', '--directory', '/home/rpj/.libresign/impress-remote-js']
+    args = ['python3', '-m', 'http.server', '5200', '--directory', home_dir+'/impress-remote-js']
     subprocess.Popen(args)
 
     sign = Sign()

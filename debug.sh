@@ -1,5 +1,7 @@
 #!/bin/bash
 
+home="${PWD}/.."
+
 if [ ! -d "presentations" ]; then
     mkdir presentations
 fi
@@ -27,5 +29,5 @@ export PYTHONPATH=$libo:'./libresign'
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo
 export URE_BOOTSTRAP=$libo/fundamentalrc
-python3 -c "import signd; signd.run_script()"
+python3 -c "import signd; signd.run_script()" --libresign-home $home
 
