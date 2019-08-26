@@ -7,9 +7,14 @@ cd ~
 mkdir .libresign
 cd .libresign
 
+# this is decidedly bad i think, should have python packages as i 
+# had originally planned
 git clone https://github.com/rptr/impress-remote-js.git
 cd impress-remote-js
+git pull
 git clone https://github.com/rptr/irpjs-client.git
+cd irpjs-client
+git pull
 
 cd ~/.libresign
 
