@@ -4,7 +4,7 @@ readme = ""
 
 setuptools.setup(
     name="libresign",
-    version="1.0.1",
+    version="1.0.2",
     author="Rasmus P J",
     author_email="wasmus@zom.bi",
     description="Digital signage solution for LibreOffice.",

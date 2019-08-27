@@ -7,6 +7,22 @@ To install use pip (only Python 3 is supported)
 pip install libresign
 ```
 
+# Running
+
+```
+libresign [ --onlyweb ] [ --noinfo ] [ --nolibreoffice ] [ --sign ] [ --conference ] [ --noremote ] [ --libresign-home ]
+
+--onlyweb: Run only the web server for the control panel (--nolibreoffice --noinfo)
+--noinfo: Don't show the information screen.
+--nolibreoffice: Don't start LibreOffice.
+--sign: Run in digital signage mode.
+--conference: Run in conference mode. (default)
+--noremote: Don't run the Impress Remote web server.
+--libresign-home: Specify the installation directory of libresign. (default: ~/.libresign)
+```
+
+The program has been tested on Debian Testing and Arch Linux ARM on the Raspberry Pi 3 B+.
+
 # Development
 
 
