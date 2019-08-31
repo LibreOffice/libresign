@@ -1,7 +1,7 @@
 body
 {
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url('/static/bg_blue.jpg');
+    background-color: #35C;
     overflow: hidden;
 }
 
@@ -54,18 +54,13 @@ h3
     background-color: #AAA;
 }
 
-#main_center
+#main
 {
-    position: absolute;
-    left: 50%;
+    width: 100%;
 }
 
 #main_holder
 {
-    position: relative;
-    left: -50%;
-    width: 700px;
-    max-width: 700px;
     background-color: #FFF;
     padding: 20px;
     box-shadow: 5px 10px #333;
