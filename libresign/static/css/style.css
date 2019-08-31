@@ -1,7 +1,7 @@
 body
 {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #35C;
+    background-color: #FFF;
     overflow: hidden;
 }
 
@@ -26,6 +26,7 @@ h3
     background-color: #6B4;
     padding: 5px 8px;
     color: #FFF;
+    border: 1px black solid;
     box-shadow: 2px 2px #333;
     font-weight: bold;
     text-decoration: none;
@@ -64,6 +65,7 @@ h3
     background-color: #FFF;
     padding: 20px;
     box-shadow: 5px 10px #333;
+    border: 2px black solid;
 }
 
 #topheader
@@ -90,6 +92,7 @@ h3
     float: right;
     margin: 0px 4px;
     padding: 2px 4px;
+    border: 1px black solid;
     background-color: #46B;
     color: #FFF;
     box-shadow: 2px 2px #333;
