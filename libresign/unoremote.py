@@ -67,10 +67,6 @@ class UNOClient():
         self.file_open          = False
         self.current_filename   = ""
 
-    # TODO In the Impress Remote Protocol, when starting a presentation 
-    #      we return (send to the client) all the slide thumbnails of 
-    #      the presentation. These are showed in the remote app
-    #      So this is needed to emulate/ mimic the remote
     def play_file (self, filename, looping):
         filename = os.path.realpath(filename)
         flags = 8
