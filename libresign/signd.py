@@ -170,7 +170,8 @@ def run_script():
     subprocess.Popen(args)
 
     # start JS Remote HTTP server
-    args = ['python3', '-m', 'http.server', '5200', '--directory', home_dir+'/impress-remote-js']
+    os.chdir(home_dir+'/impress-remote-js')
+    args = ['python3', '-m', 'http.server', '5200']
     subprocess.Popen(args)
 
     sign = Sign()
