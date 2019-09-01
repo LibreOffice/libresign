@@ -9,7 +9,7 @@ fi
 if [ ! -d "env" ]; then
     virtualenv --system-site-packages -p python3 env
     source env/bin/activate
-    pip3 install Flask python-libxdo gevent-websocket
+    pip3 install Flask Pillow python-libxdo ipython gevent-websocket
 fi
 
 touch playlist
@@ -25,7 +25,7 @@ fi
 
 source env/bin/activate
 
-export PYTHONPATH=$libo:'./libresign'
+export PYTHONPATH=$libo:'./libresign':'../irpjs'
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo
 export URE_BOOTSTRAP=$libo/fundamentalrc
