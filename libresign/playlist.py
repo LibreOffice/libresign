@@ -67,7 +67,8 @@ class Playlist():
         print("loaded presentation files", self.all_files)
 
     def load_playlist (self):
-        fd = open("playlist", "r")
+        path = config.PLAYLIST
+        fd = open(path, "r")
 
         for line in fd:
             self.playlist.append({"file" : line[:-1]})

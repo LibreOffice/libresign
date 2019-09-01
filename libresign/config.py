@@ -19,6 +19,7 @@
 HTTP_PORT           = 5000
 HTTP_CABLE_ONLY     = True 
 SAVE_FOLDER         = "./presentations"
+PLAYLIST            = "./playlist"
 SHOW_INFO_SCREEN    = True
 # conference = manually control slideshows
 # otherwise = signage mode, automatic transitions and changing slides
