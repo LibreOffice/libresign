@@ -26,10 +26,22 @@ The program has been tested on Debian Testing and Arch Linux ARM on the Raspberr
 # Development
 
 
-For development, use the supplied debug.sh script to automatically set up and run the program after you've made your changes,
+For development, beyond the obvious tools, the following setup is
+recommended to run a local version of libresign (note that
+irpjs-client is currently placed _inside_ impress-remote-js):
 
 ```
-git clone https://github.com/LibreOffice/libresign
+apt-get install virtualenv python3-xdo python3-tk
+git clone https://github.com/LibreOffice/libresign.git
+git clone https://github.com/rptr/irpjs.git
+git clone https://github.com/rptr/impress-remote-js.git
+cd impress-remote-js
+git clone https://github.com/rptr/irpjs-client.git
+```
+
+After that, use the supplied debug.sh script to automatically set up and run the program after you've made your changes,
+
+```
 cd libresign
 ./debug.sh
 ```
@@ -60,4 +72,5 @@ Feel free to add anything here.
 ## Contributors
 
 Rasmus P J <wasmus@zom.bi>
+Thorsten Behrens <thb@documentfoundation.org>
 
