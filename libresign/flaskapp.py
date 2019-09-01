@@ -91,7 +91,13 @@ def index():
     playlist    = web.get_playlist()
     files       = web.get_all_files()
     playing     = web.get_current_playlist_item()
-    return render_template('index.html', playlist=playlist, files=files, currently_playing=playing)
+    hostname    = web.get_address() + ':' + str(config.REMOTE_PORT)
+    print(hostname)
+    return render_template('index.html',
+                           playlist=playlist,
+                           files=files,
+                           currently_playing=playing,
+                           hostname=hostname)
 
 @app.route('/upload', methods=['POST'])
 def upload():

@@ -162,7 +162,6 @@ def run_script():
         if arg == '--libresign-home':
             home_dir = args[i + 1]
             i += 1
-
             print('libresign home', home_dir)
 
     # start JS Remote server
@@ -170,10 +169,12 @@ def run_script():
     subprocess.Popen(args)
 
     # start JS Remote HTTP server
+    cwd = os.getcwd()
     os.chdir(home_dir+'/impress-remote-js')
     args = ['python3', '-m', 'http.server', '5200']
     subprocess.Popen(args)
 
+    os.chdir(cwd)
     sign = Sign()
     sign.setup()
 

@@ -29,5 +29,5 @@ export PYTHONPATH=$libo:'./libresign':'../irpjs'
 export LD_LIBRARY_PATH=$libo
 export UNO_PATH=$libo
 export URE_BOOTSTRAP=$libo/fundamentalrc
-python3 -c "import signd; signd.run_script()" --libresign-home $home
+python3 -c "import signd; signd.run_script()" $@ --libresign-home $home
 

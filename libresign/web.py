@@ -69,6 +69,9 @@ class WebPusher():
         playlist = signd.get_playlist()
         return playlist.get_current()
 
+    def get_address (self):
+        return get_address()
+
 def web_thread():
     web = WebPusher()
     logging.info("starting web server")
@@ -82,8 +85,13 @@ def get_addr_1 ():
     addr, err = p.communicate()
     p.wait()
 
-    # output of hostname something like "b'123.0.0.123 \n"
-    addr = ''.join([c for c in str(addr) if c.isdigit() or c == '.'])
+    logging.debug("web.py::get_addr_1(): hostname -I output: "+str(addr))
+
+    # output of hostname something like "b'123.0.0.123 x.x.x.x y.y.y.y\n"
+    addr = str(addr).split(' ')[0]
+    addr = ''.join([c for c in addr if c.isdigit() or c == '.'])
+
+    logging.debug("web::get_addr_1(): got addr " + addr)
 
     return addr
 
@@ -121,4 +129,4 @@ def get_address ():
     if len(addr) == 0:
         addr = get_addr_pi()
 
-    return 'http://' + addr + ':' + str(port) + '/'
+    return addr

@@ -17,6 +17,7 @@
 #
 
 HTTP_PORT           = 5000
+REMOTE_PORT         = 5200
 HTTP_CABLE_ONLY     = True 
 SAVE_FOLDER         = "./presentations"
 PLAYLIST            = "./playlist"

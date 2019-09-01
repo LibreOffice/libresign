@@ -99,7 +99,7 @@ class LibreOfficeController():
     def start_info_screen (self):
         if config.SHOW_INFO_SCREEN:
             self.info_showing = True
-            addr = web.get_address()
+            addr = 'http://' + web.get_address() + ':' + str(config.HTTP_PORT)
             infoscreen.start_info(addr)
 
     def stop_info_screen (self):
