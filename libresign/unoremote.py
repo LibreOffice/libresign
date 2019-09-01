@@ -66,6 +66,7 @@ class UNOClient():
 
         self.file_open          = False
         self.current_filename   = ""
+        self.previews           = []
 
     def play_file (self, filename, looping):
         filename = os.path.realpath(filename)
@@ -89,22 +90,27 @@ class UNOClient():
             page.TransitionDuration = 99999
             page.TransitionType = 0
 
+        self.previews = self.load_previews()
+        print('previews', len(self.previews))
+
         logging.debug("play file %s" % filename)
         self.file_open = True
         self.current_filename = filename
         self.locontrol.focus_info_screen()
 
     def get_previews (self):
+        return self.previews
+
+    def load_previews (self):
         previews = []
 
         if not self.get_document():
-            return previews
+            return
 
         pages = self.docu.DrawPages.ElementNames
 
         for name in pages:
             page = self.docu.DrawPages.getByName(name)
-            img = page.PreviewBitmap.value
 
             filt = self.context.ServiceManager.createInstanceWithContext("com.sun.star.drawing.GraphicExportFilter", self.context)
             filt.setSourceDocument(page)
@@ -114,7 +120,7 @@ class UNOClient():
             #      image is created instead
             data.append(PropertyValue('PixelWidth', 0, '200', DIRECT_VALUE))
             data.append(PropertyValue('PixelHeight', 0, '120', DIRECT_VALUE))
-            data.append(PropertyValue('ColorMode', 0, '0', DIRECT_VALUE))
+            data.append(PropertyValue('ColorMode', 0, '1', DIRECT_VALUE))
 
             args = []
             args.append(PropertyValue("MediaType", 0, 'image/png', DIRECT_VALUE))
